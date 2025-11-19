@@ -9,6 +9,8 @@ public class WaveUI : MonoBehaviour
     public float waveTime;
     public float perfectWindowTime;
 
+    [HideInInspector] public Person parentPerson;
+
     private RectTransform rectTransform;
     public RectTransform cursor;
     public RectTransform perfectWindow;
@@ -20,18 +22,30 @@ public class WaveUI : MonoBehaviour
 
         StartCoroutine(Scroll());
 
-        Debug.Log(rectTransform.TransformPoint(rectTransform.anchoredPosition));
+        //Debug.Log(rectTransform.TransformPoint(rectTransform.anchoredPosition));
+    }
+
+    public void OnClick()
+    {
+        Debug.Log("sucess");
+        parentPerson.Leave();
+
+        Destroy(gameObject);
+    }
+
+    private void OnFail()
+    {
+        Debug.Log("fail!!");
+        parentPerson.Leave();
+
+        Destroy(gameObject);
     }
 
     private IEnumerator Scroll()
     {
         Vector2 fromPosition = cursor.anchoredPosition;
-        //the rect transform position is its center
-
-        //Vector2 toPosition = cursor.InverseTransformPoint(rectTransform.position - rectTransform.TransformPoint(new Vector3(rectTransform.sizeDelta.x / 2, 0, 0)));
-
-        Vector2 toPosition = rectTransform.TransformPoint(rectTransform.anchoredPosition);
-
+        //Vector2 toPosition = (Vector2)cursor.InverseTransformPoint((fourCornersArray[0] + fourCornersArray[1]) / 2) + new Vector2(cursor.sizeDelta.x / 2, 0);
+        Vector2 toPosition = new Vector2(-rectTransform.rect.width, 0);
 
 
         float t = 0;
@@ -44,5 +58,7 @@ public class WaveUI : MonoBehaviour
         }
 
         cursor.anchoredPosition = toPosition;
+
+        OnFail();
     }
 }

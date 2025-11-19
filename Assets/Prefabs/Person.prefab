@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.7, y: 0.489}
+  m_SizeDelta: {x: 1.7003, y: 0.38608}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8188449506880274397
 Canvas:
@@ -56,7 +56,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -155,8 +155,6 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -178,12 +176,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.86901283, b: 0.48104307, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -202,7 +199,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2448139148945039128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 312fd9038595a9d44b28cfcafc641fa5, type: 3}
+  m_Script: {fileID: 11500000, guid: 78eedb9bf80f0d2408dec1e9b71974ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Person
   data:
@@ -210,6 +207,7 @@ MonoBehaviour:
     popOutTime: 0
     poppingOutFrom: 0
     interactionPos: {x: 0, y: 0}
-    slideTime: 0
+    slideTime: 1
     easeType: 0
-  waveUI: {fileID: 5250134611755387440, guid: c92436e60e8641c42bc7703bc456af3f, type: 3}
+  Canvas: {fileID: 888209054515818664}
+  waveUIPrefab: {fileID: 5250134611755387440, guid: e1015b4b61799ff4c9b4713f306ebd72, type: 3}
