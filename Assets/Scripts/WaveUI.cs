@@ -27,7 +27,6 @@ public class WaveUI : MonoBehaviour
 
     public void OnClick()
     {
-        Debug.Log("sucess");
         parentPerson.Leave();
 
         Destroy(gameObject);

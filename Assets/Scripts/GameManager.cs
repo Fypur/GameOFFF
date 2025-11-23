@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //StartLevel(level1Data);
-        StartCoroutine(StartRandomLevel());
+        //StartCoroutine(StartRandomLevel());
     }
 
     private void StartLevel(List<Person.Data> levelData)
