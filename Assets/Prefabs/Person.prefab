@@ -58,7 +58,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 417464163
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &8346737537663239173
@@ -110,8 +110,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3202292622089552816}
-  - component: {fileID: 3699738791719806456}
   - component: {fileID: 1173828884816055196}
+  - component: {fileID: 3699738791719806456}
   m_Layer: 0
   m_Name: Person
   m_TagString: Untagged
@@ -135,6 +135,30 @@ Transform:
   - {fileID: 7608139964224370392}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1173828884816055196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2448139148945039128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78eedb9bf80f0d2408dec1e9b71974ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Person
+  data:
+    interaction: 5
+    popOutTime: 0
+    poppingOutFrom: 0
+    flippedX: 0
+    interactionPos: {x: 0, y: 0}
+    slideTime: 1
+    easeType: 0
+  Canvas: {fileID: 888209054515818664}
+  waveUIPrefab: {fileID: 5250134611755387440, guid: e1015b4b61799ff4c9b4713f306ebd72, type: 3}
+  nameChooserPrefab: {fileID: 7539267610732935592, guid: b90f13ffcfbd198468addc3e5df11622, type: 3}
+  agressiveWavePrefab: {fileID: 673721294118383469, guid: 989d4ddf8c9bd9240932e7f8ccfd79b5, type: 3}
 --- !u!212 &3699738791719806456
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -190,26 +214,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1173828884816055196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2448139148945039128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78eedb9bf80f0d2408dec1e9b71974ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Person
-  data:
-    interaction: 0
-    popOutTime: 0
-    poppingOutFrom: 0
-    flippedX: 0
-    interactionPos: {x: 0, y: 0}
-    slideTime: 1
-    easeType: 0
-  Canvas: {fileID: 888209054515818664}
-  waveUIPrefab: {fileID: 5250134611755387440, guid: e1015b4b61799ff4c9b4713f306ebd72, type: 3}
-  nameChooserPrefab: {fileID: 7539267610732935592, guid: b90f13ffcfbd198468addc3e5df11622, type: 3}

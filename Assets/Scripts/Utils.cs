@@ -14,7 +14,7 @@ public static class Utils
         while (t < time)
         {
             obj.transform.position = Vector2.LerpUnclamped(fromPosition, toPosition, easeFunc(t / time));
-            t += Time.deltaTime;
+            t += Time.deltaTime * Time.timeScale;
             yield return null;
         }
 

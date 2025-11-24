@@ -6,8 +6,8 @@ using static Ease;
 
 public class WaveUI : MonoBehaviour
 {
-    public float waveTime;
-    public float perfectWindowTime;
+    [HideInInspector] public float waveTime;
+    [HideInInspector] public float perfectWindowTime; //not really used as of right now
 
     [HideInInspector] public Person parentPerson;
 
@@ -52,7 +52,7 @@ public class WaveUI : MonoBehaviour
         while (t < waveTime)
         {
             cursor.anchoredPosition = Vector2.LerpUnclamped(fromPosition, toPosition, t / waveTime);
-            t += Time.deltaTime;
+            t += Time.deltaTime * Time.timeScale;
             yield return null;
         }
 

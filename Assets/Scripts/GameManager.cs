@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public float waveTime = 4f;
     public float agressiveWaveTime = 5f;
     public int agressiveWaveAmount = 5;
+    public float nameChooserTime = 7f;
 
     [Header("Spawning People params")]
     [SerializeField, Range(0f, 1f)] public float chanceToSpawn = 0.3f;

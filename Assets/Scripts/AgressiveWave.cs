@@ -10,6 +10,7 @@ public class AgressiveWave : MonoBehaviour
 
     [SerializeField] private TMPro.TMP_Text wavesLeftText;
     [SerializeField] private Button waveButton;
+    [SerializeField] private TimerSlider timerSlider;
 
     private void Awake()
     {
@@ -18,8 +19,8 @@ public class AgressiveWave : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(TimerCoroutine());
         wavesLeftText.text = "Waves left: " + waveAmount;
+        timerSlider.StartTimer(waveTime, Fail);
     }
 
     private void WaveButtonClick()
@@ -32,19 +33,15 @@ public class AgressiveWave : MonoBehaviour
             Success();
     }
 
-    private IEnumerator TimerCoroutine()
-    {
-        yield return new WaitForSeconds(waveTime);
-        Fail();
-    }
-
     private void Success()
     {
+        Debug.Log("Agressive Wave success");
         End();
     }
 
     private void Fail()
     {
+        Debug.Log("Agressive Wave fail");
         End();
     }
 

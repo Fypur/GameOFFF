@@ -285,6 +285,7 @@ MonoBehaviour:
   waveTime: 4
   agressiveWaveTime: 5
   agressiveWaveAmount: 5
+  nameChooserTime: 7
   chanceToSpawn: 0.8
   level1Data:
   - interaction: 0
@@ -2372,17 +2373,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1173828884816055196, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
-      propertyPath: data.flippedX
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1173828884816055196, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
       propertyPath: data.interaction
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1173828884816055196, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
-      propertyPath: agressiveWavePrefab
-      value: 
-      objectReference: {fileID: 673721294118383469, guid: 989d4ddf8c9bd9240932e7f8ccfd79b5, type: 3}
     - target: {fileID: 1173828884816055196, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
       propertyPath: data.interactionPos.x
       value: -6
@@ -2393,7 +2386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3202292622089552816, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.22
+      value: -12.38
       objectReference: {fileID: 0}
     - target: {fileID: 3202292622089552816, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
       propertyPath: m_LocalPosition.y
