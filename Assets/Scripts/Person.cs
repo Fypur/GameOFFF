@@ -19,9 +19,11 @@ public class Person : MonoBehaviour
     }
 
     public Data data;
-    public GameObject Canvas;
+    [SerializeField] private GameObject Canvas;
 
-    public GameObject waveUIPrefab;
+    [SerializeField] private GameObject waveUIPrefab;
+    [SerializeField] private GameObject nameChooserPrefab;
+    [SerializeField] private GameObject agressiveWavePrefab;
 
     private Vector2 spawnPos;
 
@@ -46,7 +48,8 @@ public class Person : MonoBehaviour
     public void Leave()
     {
         StopAllCoroutines();
-        StartCoroutine(Utils.SlideObject(gameObject, spawnPos, data.slideTime, data.easeType));
+
+        StartCoroutine(LeaveCoroutine());
     }
 
     private IEnumerator PopOutCoroutine()
@@ -56,18 +59,32 @@ public class Person : MonoBehaviour
         switch (data.interaction)
         {
             case Interactions.Wave:
-                yield return Wave();
+                WaveUI waveUI = Instantiate(waveUIPrefab, Canvas.transform).GetComponent<WaveUI>();
+                waveUI.parentPerson = this;
+                break;
+            case Interactions.NameChoice:
+                NameChooser nameChooser = Instantiate(nameChooserPrefab, Canvas.transform).GetComponent<NameChooser>();
+                nameChooser.parentPerson = this;
+                //TODO: Make this depend on the actual person name etc
+                nameChooser.possibleNames = new string[] { "Adam", "Amad", "Axel", "Adem" };
+                nameChooser.correctNameIndex = 3;
+                break;
+            case Interactions.AgressiveWave:
+                AgressiveWave agressiveWave = Instantiate(agressiveWavePrefab, Canvas.transform).GetComponent<AgressiveWave>();
+                agressiveWave.parentPerson = this;
+                agressiveWave.waveAmount = GameManager.Instance.agressiveWaveAmount;
+                agressiveWave.waveTime = GameManager.Instance.agressiveWaveTime;
                 break;
             default:
-                throw new NotImplementedException();
+                break;
+                //throw new NotImplementedException();
         }
     }
 
-    private IEnumerator Wave()
+    private IEnumerator LeaveCoroutine()
     {
-        WaveUI waveUI = Instantiate(waveUIPrefab, Canvas.transform).GetComponent<WaveUI>();
-        waveUI.parentPerson = this;
-        yield return null;
+        yield return Utils.SlideObject(gameObject, spawnPos, data.slideTime, data.easeType);
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected()

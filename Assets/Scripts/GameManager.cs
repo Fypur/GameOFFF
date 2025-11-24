@@ -4,16 +4,32 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject PersonPrefab;
+    public static GameManager Instance;
 
-    public Vector2 leftInitPos;
-    public Vector2 rightInitPos;
-    public Vector2 upInitPos;
-    public Vector2 downInitPos;
+    [Header("Gameplay properties")]
+    public float waveTime = 4f;
+    public float agressiveWaveTime = 5f;
+    public int agressiveWaveAmount = 5;
 
-    public List<Person.Data> level1Data;
+    [Header("Spawning People params")]
+    [SerializeField, Range(0f, 1f)] public float chanceToSpawn = 0.3f;
 
-    public float chanceToSpawn = 0.3f;
+    [Header("Level Data")]
+    [SerializeField] private List<Person.Data> level1Data;
+
+    [Header("Prefabs")]
+    [SerializeField] private GameObject PersonPrefab;
+
+    [Header("Initial Person Positions")]
+    [SerializeField] private Vector2 leftInitPos;
+    [SerializeField] private Vector2 rightInitPos;
+    [SerializeField] private Vector2 upInitPos;
+    [SerializeField] private Vector2 downInitPos;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -95,6 +111,7 @@ public class GameManager : MonoBehaviour
         person.data = personData;
     }
 
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -102,5 +119,11 @@ public class GameManager : MonoBehaviour
         Gizmos.DrawWireSphere(rightInitPos, 0.3f);
         Gizmos.DrawWireSphere(downInitPos, 0.3f);
         Gizmos.DrawWireSphere(upInitPos, 0.3f);
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void ResetStaticFields()
+    {
+        Instance = null;
     }
 }

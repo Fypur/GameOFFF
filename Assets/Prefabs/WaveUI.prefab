@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.055699944, y: 0}
+  m_SizeDelta: {x: 18.1922, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &4820271860044734916
 CanvasRenderer:
@@ -110,7 +110,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.30330002, y: 0}
+  m_SizeDelta: {x: 30.33, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4164072022679977519
 CanvasRenderer:
@@ -186,10 +186,10 @@ RectTransform:
   - {fileID: 1838520832328095165}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1.2976, y: 0.0689}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 215, y: -20}
+  m_SizeDelta: {x: 430, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1837638437618465574
 CanvasRenderer:
@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveUI
   waveTime: 3
   perfectWindowTime: 1
+  parentPerson: {fileID: 0}
   cursor: {fileID: 1838520832328095165}
   perfectWindow: {fileID: 6196282973367254888}
 --- !u!114 &7125686923215216227

@@ -282,11 +282,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3bb1bc143d7c143bba4d38a317ddfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  PersonPrefab: {fileID: 2448139148945039128, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
-  leftInitPos: {x: -15, y: 0}
-  rightInitPos: {x: 15, y: 0}
-  upInitPos: {x: 0, y: 0}
-  downInitPos: {x: 0, y: 0}
+  waveTime: 4
+  agressiveWaveTime: 5
+  agressiveWaveAmount: 5
+  chanceToSpawn: 0.8
   level1Data:
   - interaction: 0
     popOutTime: 0
@@ -330,7 +329,11 @@ MonoBehaviour:
     interactionPos: {x: 7, y: 0}
     slideTime: 3
     easeType: 6
-  chanceToSpawn: 0.8
+  PersonPrefab: {fileID: 2448139148945039128, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
+  leftInitPos: {x: -15, y: 0}
+  rightInitPos: {x: 15, y: 0}
+  upInitPos: {x: 0, y: 0}
+  downInitPos: {x: 0, y: 0}
 --- !u!4 &306743361
 Transform:
   m_ObjectHideFlags: 0
@@ -2368,17 +2371,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1173828884816055196, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
+      propertyPath: data.flippedX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173828884816055196, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
+      propertyPath: data.interaction
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173828884816055196, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
+      propertyPath: agressiveWavePrefab
+      value: 
+      objectReference: {fileID: 673721294118383469, guid: 989d4ddf8c9bd9240932e7f8ccfd79b5, type: 3}
+    - target: {fileID: 1173828884816055196, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
+      propertyPath: data.interactionPos.x
+      value: -6
+      objectReference: {fileID: 0}
     - target: {fileID: 2448139148945039128, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
       propertyPath: m_Name
       value: Person
       objectReference: {fileID: 0}
     - target: {fileID: 3202292622089552816, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.15
+      value: 13.22
       objectReference: {fileID: 0}
     - target: {fileID: 3202292622089552816, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.0451112
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3202292622089552816, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
       propertyPath: m_LocalPosition.z
