@@ -11,14 +11,16 @@ public class WaveUI : MonoBehaviour
 
     [HideInInspector] public Person parentPerson;
 
-    private RectTransform rectTransform;
-    public RectTransform cursor;
-    public RectTransform perfectWindow;
+    [SerializeField] private RectTransform cursor;
+    [SerializeField] private RectTransform waveBox;
+    private Button waveBoxButton;
+    [SerializeField] private RectTransform perfectWindow;
 
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
-        perfectWindow.sizeDelta = new Vector2(rectTransform.sizeDelta.x * perfectWindowTime / waveTime, perfectWindow.sizeDelta.y);
+        waveBoxButton = waveBox.gameObject.GetComponent<Button>();
+        waveBoxButton.onClick.AddListener(OnClick);
+        perfectWindow.sizeDelta = new Vector2(waveBox.sizeDelta.x * perfectWindowTime / waveTime, perfectWindow.sizeDelta.y);
 
         StartCoroutine(Scroll());
 
@@ -44,7 +46,7 @@ public class WaveUI : MonoBehaviour
     {
         Vector2 fromPosition = cursor.anchoredPosition;
         //Vector2 toPosition = (Vector2)cursor.InverseTransformPoint((fourCornersArray[0] + fourCornersArray[1]) / 2) + new Vector2(cursor.sizeDelta.x / 2, 0);
-        Vector2 toPosition = new Vector2(-rectTransform.rect.width, 0);
+        Vector2 toPosition = new Vector2(-waveBox.rect.width, 0);
 
 
         float t = 0;

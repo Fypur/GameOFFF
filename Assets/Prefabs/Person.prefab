@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 4.02, y: 3.65}
-  m_SizeDelta: {x: 670.2338, y: 208.731}
+  m_AnchoredPosition: {x: 2.97, y: 3.9043}
+  m_SizeDelta: {x: 343.3198, y: 157.8778}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8188449506880274397
 Canvas:
@@ -153,12 +153,14 @@ MonoBehaviour:
     poppingOutFrom: 0
     flippedX: 0
     interactionPos: {x: 0, y: 0}
+    canvasOffset: {x: 0, y: 0}
     slideTime: 1
     easeType: 0
   Canvas: {fileID: 888209054515818664}
   waveUIPrefab: {fileID: 5250134611755387440, guid: e1015b4b61799ff4c9b4713f306ebd72, type: 3}
   nameChooserPrefab: {fileID: 7539267610732935592, guid: b90f13ffcfbd198468addc3e5df11622, type: 3}
   agressiveWavePrefab: {fileID: 673721294118383469, guid: 989d4ddf8c9bd9240932e7f8ccfd79b5, type: 3}
+  osuSliderPrefab: {fileID: 1815290416325056882, guid: f2b36c3078f95c34186ea23bdca623ae, type: 3}
 --- !u!212 &3699738791719806456
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -203,7 +205,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1739306553176554787, guid: 4908224940905344ab2eb21c5ec008bd, type: 3}
+  m_Sprite: {fileID: 2761287462279358795, guid: 9e77b4bcfb7d34b459a9599f7a1970f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

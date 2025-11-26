@@ -13,6 +13,7 @@ public class Person : MonoBehaviour
         public bool flippedX;
 
         public Vector2 interactionPos;
+        public Vector2 canvasOffset;
         public float slideTime;
 
         public Ease.EaseType easeType;
@@ -24,12 +25,14 @@ public class Person : MonoBehaviour
     [SerializeField] private GameObject waveUIPrefab;
     [SerializeField] private GameObject nameChooserPrefab;
     [SerializeField] private GameObject agressiveWavePrefab;
+    [SerializeField] private GameObject osuSliderPrefab;
 
     private Vector2 spawnPos;
 
     private void Start()
     {
         spawnPos = transform.position;
+        Canvas.transform.position += (Vector3)data.canvasOffset;
 
         if (data.flippedX)
         {
@@ -74,6 +77,10 @@ public class Person : MonoBehaviour
                 agressiveWave.parentPerson = this;
                 agressiveWave.waveAmount = GameManager.Instance.agressiveWaveAmount;
                 agressiveWave.waveTime = GameManager.Instance.agressiveWaveTime;
+                break;
+            case Interactions.Osu:
+                OsuSlider osuSlider = Instantiate(osuSliderPrefab, Canvas.transform).GetComponent<OsuSlider>();
+                osuSlider.parentPerson = this;
                 break;
             default:
                 break;

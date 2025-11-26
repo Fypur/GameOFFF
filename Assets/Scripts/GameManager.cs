@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField, Range(0f, 1f)] public float chanceToSpawn = 0.3f;
 
     [Header("Level Data")]
+    [SerializeField] private PersonSpawnSettings spawnSettings;
     [SerializeField] private List<Person.Data> level1Data;
 
     [Header("Prefabs")]
@@ -27,15 +29,28 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Vector2 upInitPos;
     [SerializeField] private Vector2 downInitPos;
 
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip music;
+
+    [System.Serializable] private class PersonSpawnSettings
+    {
+        public float spawnEveryXSeconds = 1.5f;
+        public float waveChance = 0.8f;
+        public float agressiveWave = 0.1f;
+        public float nameChooser = 0.1f;
+    }
+
     private void Awake()
     {
         Instance = this;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
         //StartLevel(level1Data);
         //StartCoroutine(StartRandomLevel());
+        //audioSource.PlayOneShot(music);
     }
 
     private void StartLevel(List<Person.Data> levelData)
@@ -46,20 +61,31 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartRandomLevel()
     {
-        float t = 1;
+        float t = spawnSettings.spawnEveryXSeconds;
         while (true)
         {
             if(t <= 0)
             {
-                t = 1;
+                t = spawnSettings.spawnEveryXSeconds;
 
                 if(UnityEngine.Random.Range(0f, 1f) <= chanceToSpawn)
                 {
                     Person.Data data = new Person.Data();
                     data.slideTime = UnityEngine.Random.Range(1.5f, 4f);
-                    data.interaction = Interactions.Wave;
+
+                    float r = UnityEngine.Random.value;
+                    if (r <= spawnSettings.waveChance)
+                        data.interaction = Interactions.Wave;
+                    else if (r <= spawnSettings.waveChance + spawnSettings.agressiveWave)
+                        data.interaction = Interactions.AgressiveWave;
+                    else if (r <= spawnSettings.waveChance + spawnSettings.agressiveWave + spawnSettings.nameChooser)
+                        data.interaction = Interactions.NameChoice;
+
+
                     data.easeType = Ease.EaseType.QuintInAndOut;
-                    data.interactionPos = new Vector2(UnityEngine.Random.Range(-7f, -5f), 0);
+                    data.interactionPos = new Vector2(UnityEngine.Random.Range(-8f, -5f), 0);
+
+                    data.canvasOffset = new Vector2(0, (UnityEngine.Random.value - 1) * 2f);
 
                     if(UnityEngine.Random.Range(0f, 1f) < 0.5f)
                     {
@@ -110,6 +136,11 @@ public class GameManager : MonoBehaviour
 
         Person person = Instantiate(PersonPrefab, (Vector3)pos, Quaternion.identity).GetComponent<Person>();
         person.data = personData;
+    }
+
+    public void Death()
+    {
+        EditorApplication.ExitPlaymode();
     }
 
 

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-public enum Interactions { Wave, Handshake, NameChoice, SmallTalk, Bowing, AgressiveWave, Robot, Opp }
+using UnityEngine.UIElements;
+public enum Interactions { Wave, NameChoice, AgressiveWave, Osu, HandShake, SmallTalk, Bowing, Robot, Opp }
 public enum Direction { Left, Right, Down, Up }
 
 public static class Utils
@@ -19,5 +20,23 @@ public static class Utils
         }
 
         obj.transform.position = toPosition;
+    }
+
+    public static IEnumerator Shake(GameObject obj, float time, float amplitude)
+    {
+        Vector3 initPos = obj.transform.position;
+
+        float t = 0;
+        while (t < time)
+        {
+            float noiseX = (Mathf.PerlinNoise(Time.time * 20f, 0f) - 0.5f) * 2f;
+            float noiseY = (Mathf.PerlinNoise(0f, Time.time * 20f) - 0.5f) * 2f;
+
+            obj.transform.position = initPos + new Vector3(noiseX, noiseY, 0) * amplitude;
+            t += Time.deltaTime * Time.timeScale;
+            yield return null;
+        }
+
+        obj.transform.position = initPos;
     }
 }
