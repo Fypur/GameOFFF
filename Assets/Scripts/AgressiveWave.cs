@@ -4,9 +4,12 @@ using UnityEngine.UI;
 
 public class AgressiveWave : MonoBehaviour
 {
-    public Person parentPerson;
-    public int waveAmount = 5;
-    public float waveTime = 5f;
+    [SerializeField] private float healedAmount = 5;
+    [SerializeField] private float damage = 10;
+
+    [HideInInspector] public Person parentPerson;
+    [HideInInspector] public int waveAmount = 5;
+    [HideInInspector] public float waveTime = 5f;
 
     [SerializeField] private TMPro.TMP_Text wavesLeftText;
     [SerializeField] private Button waveButton;
@@ -35,13 +38,13 @@ public class AgressiveWave : MonoBehaviour
 
     private void Success()
     {
-        Debug.Log("Agressive Wave success");
+        GameManager.Instance.Heal(healedAmount);
         End();
     }
 
     private void Fail()
     {
-        Debug.Log("Agressive Wave fail");
+        GameManager.Instance.Damage(damage);
         End();
     }
 

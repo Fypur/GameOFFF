@@ -542,6 +542,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ed0a7588c2d1c43b82f9ee303f9ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveUI
+  healedAmount: 1
+  damage: 10
   waveTime: 3
   perfectWindowTime: 1
   parentPerson: {fileID: 0}

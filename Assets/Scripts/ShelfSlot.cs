@@ -5,11 +5,9 @@ public class ShelfSlot : MonoBehaviour
     public ShelfItem.ItemType itemType;
     public ShelfItem heldItem = null;
 
-    private ShelfManager shelfManager = null;
-
-    private void Awake()
+    private void Start()
     {
-        shelfManager = FindFirstObjectByType<ShelfManager>();
+        ShelfManager.instance.shelfSlots.Add(this);
     }
 
     public void Hold(ShelfItem item)
@@ -19,5 +17,7 @@ public class ShelfSlot : MonoBehaviour
         item.shelfed = true;
         item.transform.SetParent(transform);
         item.transform.localPosition = Vector3.zero;
+
+        ShelfManager.instance.AddFinishedSlot();
     }
 }

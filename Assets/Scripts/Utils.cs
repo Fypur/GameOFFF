@@ -39,4 +39,10 @@ public static class Utils
 
         obj.transform.position = initPos;
     }
+
+    public static IEnumerator TimerThen(float time, Action callback)
+    {
+        yield return new WaitForSeconds(time);
+        callback();
+    }
 }

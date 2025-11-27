@@ -13,9 +13,6 @@ public class GameManager : MonoBehaviour
     public int agressiveWaveAmount = 5;
     public float nameChooserTime = 7f;
 
-    [Header("Spawning People params")]
-    [SerializeField, Range(0f, 1f)] public float chanceToSpawn = 0.3f;
-
     [Header("Level Data")]
     [SerializeField] private PersonSpawnSettings spawnSettings;
     [SerializeField] private List<Person.Data> level1Data;
@@ -29,14 +26,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Vector2 upInitPos;
     [SerializeField] private Vector2 downInitPos;
 
+    [Header("Misc")]
+    [SerializeField] private HealthBar healthBar;
+
     private AudioSource audioSource;
     [SerializeField] private AudioClip music;
 
     [System.Serializable] private class PersonSpawnSettings
     {
-        public float spawnEveryXSeconds = 1.5f;
-        public float waveChance = 0.8f;
+        [Range(0f, 1f)] public float chanceToSpawn = 0.4f;
+        public float trySpawnEveryXSeconds = 1.5f;
+        public float waveChance = 0.7f;
         public float agressiveWave = 0.1f;
+        public float osuSlider = 0.1f;
         public float nameChooser = 0.1f;
     }
 
@@ -49,7 +51,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //StartLevel(level1Data);
-        //StartCoroutine(StartRandomLevel());
+        StartCoroutine(StartRandomLevel());
         //audioSource.PlayOneShot(music);
     }
 
@@ -61,14 +63,14 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartRandomLevel()
     {
-        float t = spawnSettings.spawnEveryXSeconds;
+        float t = spawnSettings.trySpawnEveryXSeconds;
         while (true)
         {
             if(t <= 0)
             {
-                t = spawnSettings.spawnEveryXSeconds;
+                t = spawnSettings.trySpawnEveryXSeconds;
 
-                if(UnityEngine.Random.Range(0f, 1f) <= chanceToSpawn)
+                if (UnityEngine.Random.Range(0f, 1f) <= spawnSettings.chanceToSpawn)
                 {
                     Person.Data data = new Person.Data();
                     data.slideTime = UnityEngine.Random.Range(1.5f, 4f);
@@ -80,6 +82,8 @@ public class GameManager : MonoBehaviour
                         data.interaction = Interactions.AgressiveWave;
                     else if (r <= spawnSettings.waveChance + spawnSettings.agressiveWave + spawnSettings.nameChooser)
                         data.interaction = Interactions.NameChoice;
+                    else if (r <= spawnSettings.waveChance + spawnSettings.agressiveWave + spawnSettings.nameChooser + spawnSettings.osuSlider)
+                        data.interaction = Interactions.Osu;
 
 
                     data.easeType = Ease.EaseType.QuintInAndOut;
@@ -138,9 +142,28 @@ public class GameManager : MonoBehaviour
         person.data = personData;
     }
 
+    public void Damage(float damage)
+    {
+        healthBar.Damage(damage);
+        StartCoroutine(Utils.Shake(Camera.main.gameObject, 0.2f, 0.1f));
+    }
+
+    public void Heal(float amount)
+    {
+        healthBar.Heal(amount);
+    }
+
+    public void LevelSuccess()
+    {
+        Debug.Log("Level Success!");
+    }
+
     public void Death()
     {
+#if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
+#endif
+        Application.Quit();
     }
 
 

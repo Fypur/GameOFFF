@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 public class NameChooser : MonoBehaviour
 {
+    [SerializeField] private float healedAmount;
+    [SerializeField] private float damage;
+
     [HideInInspector] public Person parentPerson;
     [HideInInspector] public string[] possibleNames;
     [HideInInspector] public int correctNameIndex;
@@ -45,17 +48,13 @@ public class NameChooser : MonoBehaviour
     private void Fail()
     {
         Debug.Log("Name chooser fail");
-
-
-        //TODO: Apply damage here
-
+        GameManager.Instance.Damage(damage);
         End();
     }
 
     private void Success()
     {
-        Debug.Log("Name chooser success");
-
+        GameManager.Instance.Heal(damage);
         End();
     }
 

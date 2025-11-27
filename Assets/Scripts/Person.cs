@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Person : MonoBehaviour
@@ -20,27 +21,45 @@ public class Person : MonoBehaviour
     }
 
     public Data data;
-    [SerializeField] private GameObject Canvas;
+    private static List<Person> persons;
+    private static int addedPersonsCount;
+
+    public Canvas canvas;
 
     [SerializeField] private GameObject waveUIPrefab;
     [SerializeField] private GameObject nameChooserPrefab;
     [SerializeField] private GameObject agressiveWavePrefab;
-    [SerializeField] private GameObject osuSliderPrefab;
+    [SerializeField] private OsuSlidersContainer osuSliderContainer;
 
     private Vector2 spawnPos;
 
     private void Start()
     {
         spawnPos = transform.position;
-        Canvas.transform.position += (Vector3)data.canvasOffset;
+        canvas.transform.position += (Vector3)data.canvasOffset;
 
         if (data.flippedX)
         {
             GetComponent<SpriteRenderer>().flipX = true;
-            Canvas.transform.localPosition = new Vector3(-Canvas.transform.localPosition.x, Canvas.transform.localPosition.y, Canvas.transform.localPosition.z);
+            canvas.transform.localPosition = new Vector3(-canvas.transform.localPosition.x, canvas.transform.localPosition.y, canvas.transform.localPosition.z);
         }
 
         PopOut();
+
+        canvas.worldCamera = Camera.main;
+
+        if (persons == null)
+            persons = new();
+        persons.Add(this);
+        addedPersonsCount++;
+        if (addedPersonsCount % 10 == 0)
+        {
+            addedPersonsCount = 0;
+            for (int i = 0; i < persons.Count; i++)
+                persons[i].canvas.sortingOrder = i;
+        }
+        else
+            canvas.sortingOrder = persons[persons.Count - 1].canvas.sortingOrder + 1;
     }
 
     public void PopOut()
@@ -62,24 +81,24 @@ public class Person : MonoBehaviour
         switch (data.interaction)
         {
             case Interactions.Wave:
-                WaveUI waveUI = Instantiate(waveUIPrefab, Canvas.transform).GetComponent<WaveUI>();
+                WaveUI waveUI = Instantiate(waveUIPrefab, canvas.transform).GetComponent<WaveUI>();
                 waveUI.parentPerson = this;
                 break;
             case Interactions.NameChoice:
-                NameChooser nameChooser = Instantiate(nameChooserPrefab, Canvas.transform).GetComponent<NameChooser>();
+                NameChooser nameChooser = Instantiate(nameChooserPrefab, canvas.transform).GetComponent<NameChooser>();
                 nameChooser.parentPerson = this;
                 //TODO: Make this depend on the actual person name etc
                 nameChooser.possibleNames = new string[] { "Adam", "Amad", "Axel", "Adem" };
                 nameChooser.correctNameIndex = 3;
                 break;
             case Interactions.AgressiveWave:
-                AgressiveWave agressiveWave = Instantiate(agressiveWavePrefab, Canvas.transform).GetComponent<AgressiveWave>();
+                AgressiveWave agressiveWave = Instantiate(agressiveWavePrefab, canvas.transform).GetComponent<AgressiveWave>();
                 agressiveWave.parentPerson = this;
                 agressiveWave.waveAmount = GameManager.Instance.agressiveWaveAmount;
                 agressiveWave.waveTime = GameManager.Instance.agressiveWaveTime;
                 break;
             case Interactions.Osu:
-                OsuSlider osuSlider = Instantiate(osuSliderPrefab, Canvas.transform).GetComponent<OsuSlider>();
+                OsuSlider osuSlider = Instantiate(osuSliderContainer.GetRandomOne(), canvas.transform).GetComponent<OsuSlider>();
                 osuSlider.parentPerson = this;
                 break;
             default:
@@ -90,6 +109,7 @@ public class Person : MonoBehaviour
 
     private IEnumerator LeaveCoroutine()
     {
+        persons.Remove(this);
         yield return Utils.SlideObject(gameObject, spawnPos, data.slideTime, data.easeType);
         Destroy(gameObject);
     }
@@ -98,5 +118,12 @@ public class Person : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(data.interactionPos, 0.3f);
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void ResetStaticFields()
+    {
+        persons = null;
+        addedPersonsCount = 0;
     }
 }

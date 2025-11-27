@@ -4,15 +4,16 @@ using UnityEngine.InputSystem;
 public class HealthBar : MonoBehaviour
 {
     public float fullHealth = 100;
-    [HideInInspector] public float health;
+    [SerializeField] private RectTransform cursor;
+    [SerializeField] private Transform cursorLeftBound;
+    [SerializeField] private Transform cursorRightBound;
 
-    [SerializeField] private RectTransform fill;
-    private float maxFillHeight;
+    [HideInInspector] public float health;
 
     private void Start()
     {
         health = fullHealth;
-        maxFillHeight = fill.sizeDelta.y;
+        UpdateBar();
     }
 
     public void Heal(float amount)
@@ -35,19 +36,11 @@ public class HealthBar : MonoBehaviour
 
     private void UpdateBar()
     {
-        fill.sizeDelta = new Vector2(fill.sizeDelta.x, maxFillHeight * health / fullHealth);
+        cursor.transform.position = Vector2.Lerp(cursorRightBound.transform.position, cursorLeftBound.transform.position, health / fullHealth);
     }
 
     private void Death()
     {
         GameManager.Instance.Death();
-    }
-
-    private void Update()
-    {
-        if(Keyboard.current.kKey.isPressed)
-            Heal(10);
-        else if(Keyboard.current.lKey.isPressed)
-            Damage(10);
     }
 }

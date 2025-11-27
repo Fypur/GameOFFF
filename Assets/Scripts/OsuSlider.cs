@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class OsuSlider : MonoBehaviour, IPointerDownHandler
 {
+    [SerializeField] private float slideTime = 5f;
+    [SerializeField] private float damage = 10f;
+    [SerializeField] private float healAmount = 10f;
     [SerializeField] private float distanceToLast = 0.4f;
     [SerializeField] private OsuBall ball;
 
@@ -25,6 +28,11 @@ public class OsuSlider : MonoBehaviour, IPointerDownHandler
 
         Vector2 splineInitPos = spriteShape.spline.GetPosition(0) + transform.position;
         ball.transform.position = new Vector3(splineInitPos.x, splineInitPos.y, ball.transform.position.z);
+    }
+
+    private void Start()
+    {
+        StartCoroutine(Utils.TimerThen(slideTime, () => { if (!succeeded) Fail(); }));
     }
 
     private void OnBallPointerDown()
@@ -67,14 +75,14 @@ public class OsuSlider : MonoBehaviour, IPointerDownHandler
 
     private void Success()
     {
-        Debug.Log("Success");
+        GameManager.Instance.Heal(healAmount);
         succeeded = true;
         End();
     }
 
     private void Fail()
     {
-        Debug.Log("Fail!!");
+        GameManager.Instance.Damage(damage);
         End();
     }
 

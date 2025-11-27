@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class ShelfManager : MonoBehaviour
 {
-    public int numItemsInHotbar = 5;
-    public float hotbarItemOffset = 1.5f;
-    public int[] numItemsPerShelf = new int[5] { 4, 4, 4, 4, 4 };
+    public static ShelfManager instance;
 
-    public GameObject hotbar;
-    public GameObject shelf;
-    public GameObject[] shelfItemPrefab;
+    [SerializeField] private int numItemsInHotbar = 5;
+    [SerializeField] private float hotbarItemOffset = 1.5f;
+    [SerializeField] private int[] numItemsPerShelf = new int[5] { 4, 4, 4, 4, 4 };
+
+    [HideInInspector] public List<ShelfSlot> shelfSlots;
+    [HideInInspector] public int shelfSlotsHoldingItemNumber;
+    [SerializeField] private GameObject hotbar;
+    [SerializeField] private GameObject shelf;
+    [SerializeField] private GameObject[] shelfItemPrefab;
 
 
     private List<ShelfItem.ItemType> items = new();
     private int currentItemIndex = 0;
     private static System.Random rng = new System.Random();
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -56,6 +65,14 @@ public class ShelfManager : MonoBehaviour
         
     }
 
+    public void AddFinishedSlot()
+    {
+        shelfSlotsHoldingItemNumber++;
+        if (shelfSlotsHoldingItemNumber == shelfSlots.Count)
+            GameManager.Instance.LevelSuccess();
+    }
+
+
     //https://stackoverflow.com/questions/273313/randomize-a-listt thanks stackoverflow as always
     private static void Shuffle<T>(IList<T> list)
     {
@@ -73,6 +90,7 @@ public class ShelfManager : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void ResetStaticFields()
     {
+        instance = null;
         rng = new();
     }
 }

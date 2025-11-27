@@ -6,6 +6,9 @@ using static Ease;
 
 public class WaveUI : MonoBehaviour
 {
+    [SerializeField] private float healedAmount;
+    [SerializeField] private float damage;
+
     [HideInInspector] public float waveTime;
     [HideInInspector] public float perfectWindowTime; //not really used as of right now
 
@@ -29,16 +32,19 @@ public class WaveUI : MonoBehaviour
 
     public void OnClick()
     {
-        parentPerson.Leave();
-
-        Destroy(gameObject);
+        GameManager.Instance.Heal(healedAmount);
+        End();
     }
 
     private void OnFail()
     {
-        Debug.Log("fail!!");
-        parentPerson.Leave();
+        GameManager.Instance.Damage(damage);
+        End();
+    }
 
+    private void End()
+    {
+        parentPerson.Leave();
         Destroy(gameObject);
     }
 
