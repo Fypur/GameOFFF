@@ -26,7 +26,7 @@ public class NameChooser : MonoBehaviour
 
     private void Start()
     {
-        timerSlider.StartTimer(GameManager.Instance.nameChooserTime, Fail);
+        timerSlider.StartTimer(GameManager.instance.nameChooserTime, Fail);
 
         if(possibleNames != null)
         {
@@ -48,13 +48,13 @@ public class NameChooser : MonoBehaviour
     private void Fail()
     {
         Debug.Log("Name chooser fail");
-        GameManager.Instance.Damage(damage);
+        GameManager.instance.Damage(damage);
         End();
     }
 
     private void Success()
     {
-        GameManager.Instance.Heal(damage);
+        GameManager.instance.Heal(damage);
         End();
     }
 

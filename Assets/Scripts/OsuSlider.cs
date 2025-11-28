@@ -75,14 +75,14 @@ public class OsuSlider : MonoBehaviour, IPointerDownHandler
 
     private void Success()
     {
-        GameManager.Instance.Heal(healAmount);
+        GameManager.instance.Heal(healAmount);
         succeeded = true;
         End();
     }
 
     private void Fail()
     {
-        GameManager.Instance.Damage(damage);
+        GameManager.instance.Damage(damage);
         End();
     }
 

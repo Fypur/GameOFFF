@@ -38,13 +38,13 @@ public class AgressiveWave : MonoBehaviour
 
     private void Success()
     {
-        GameManager.Instance.Heal(healedAmount);
+        GameManager.instance.Heal(healedAmount);
         End();
     }
 
     private void Fail()
     {
-        GameManager.Instance.Damage(damage);
+        GameManager.instance.Damage(damage);
         End();
     }
 

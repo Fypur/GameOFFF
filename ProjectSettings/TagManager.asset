@@ -47,5 +47,8 @@ TagManager:
   - name: Popup
     uniqueID: 417464163
     locked: 0
+  - name: Sliding Door
+    uniqueID: 3646952285
+    locked: 0
   m_RenderingLayers:
   - Default

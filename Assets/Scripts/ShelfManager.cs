@@ -69,7 +69,7 @@ public class ShelfManager : MonoBehaviour
     {
         shelfSlotsHoldingItemNumber++;
         if (shelfSlotsHoldingItemNumber == shelfSlots.Count)
-            GameManager.Instance.LevelSuccess();
+            GameManager.instance.LevelSuccess();
     }
 
 

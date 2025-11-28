@@ -94,8 +94,8 @@ public class Person : MonoBehaviour
             case Interactions.AgressiveWave:
                 AgressiveWave agressiveWave = Instantiate(agressiveWavePrefab, canvas.transform).GetComponent<AgressiveWave>();
                 agressiveWave.parentPerson = this;
-                agressiveWave.waveAmount = GameManager.Instance.agressiveWaveAmount;
-                agressiveWave.waveTime = GameManager.Instance.agressiveWaveTime;
+                agressiveWave.waveAmount = GameManager.instance.agressiveWaveAmount;
+                agressiveWave.waveTime = GameManager.instance.agressiveWaveTime;
                 break;
             case Interactions.Osu:
                 OsuSlider osuSlider = Instantiate(osuSliderContainer.GetRandomOne(), canvas.transform).GetComponent<OsuSlider>();

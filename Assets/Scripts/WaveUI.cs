@@ -32,13 +32,13 @@ public class WaveUI : MonoBehaviour
 
     public void OnClick()
     {
-        GameManager.Instance.Heal(healedAmount);
+        GameManager.instance.Heal(healedAmount);
         End();
     }
 
     private void OnFail()
     {
-        GameManager.Instance.Damage(damage);
+        GameManager.instance.Damage(damage);
         End();
     }
 

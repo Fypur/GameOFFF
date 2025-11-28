@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager instance;
 
     [Header("Gameplay properties")]
     public float waveTime = 4f;
@@ -32,6 +33,8 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] private AudioClip music;
 
+    
+
     [System.Serializable] private class PersonSpawnSettings
     {
         [Range(0f, 1f)] public float chanceToSpawn = 0.4f;
@@ -44,15 +47,33 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        instance = this;
         audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
+        if (SlidingDoors.instance != null)
+            SlidingDoors.instance.OnBeginOpen.AddListener(StartLevel);
+        else
+            StartLevel();
+
         //StartLevel(level1Data);
+        /*MAKE SLIDING DOORS ON SCENE OPEN AND CLOSE
+            -> LOSING AND WINNING SCREENS*/
+        
+    }
+
+    private void Update()
+    {
+        if (UnityEngine.InputSystem.Keyboard.current.oKey.wasPressedThisFrame)
+            SlidingDoors.instance.CloseAndLoadScene("Menu");
+    }
+
+    public void StartLevel()
+    {
         StartCoroutine(StartRandomLevel());
-        //audioSource.PlayOneShot(music);
+        GetComponent<StudioEventEmitter>().Play();
     }
 
     private void StartLevel(List<Person.Data> levelData)
@@ -179,6 +200,6 @@ public class GameManager : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void ResetStaticFields()
     {
-        Instance = null;
+        instance = null;
     }
 }
