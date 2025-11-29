@@ -21,8 +21,6 @@ public class Person : MonoBehaviour
     }
 
     public Data data;
-    private static List<Person> persons;
-    private static int addedPersonsCount;
 
     public Canvas canvas;
 
@@ -48,18 +46,18 @@ public class Person : MonoBehaviour
 
         canvas.worldCamera = Camera.main;
 
-        if (persons == null)
-            persons = new();
-        persons.Add(this);
-        addedPersonsCount++;
-        if (addedPersonsCount % 10 == 0)
+        if (GameManager.instance.persons == null)
+            GameManager.instance.persons = new();
+        GameManager.instance.persons.Add(this);
+        GameManager.instance.addedPersonsCount++;
+        if (GameManager.instance.addedPersonsCount % 10 == 0)
         {
-            addedPersonsCount = 0;
-            for (int i = 0; i < persons.Count; i++)
-                persons[i].canvas.sortingOrder = i;
+            GameManager.instance.addedPersonsCount = 0;
+            for (int i = 0; i < GameManager.instance.persons.Count; i++)
+                GameManager.instance.persons[i].canvas.sortingOrder = i;
         }
         else
-            canvas.sortingOrder = persons[persons.Count - 1].canvas.sortingOrder + 1;
+            canvas.sortingOrder = GameManager.instance.persons[GameManager.instance.persons.Count - 1].canvas.sortingOrder + 1;
     }
 
     public void PopOut()
@@ -109,7 +107,7 @@ public class Person : MonoBehaviour
 
     private IEnumerator LeaveCoroutine()
     {
-        persons.Remove(this);
+        GameManager.instance.persons.Remove(this);
         yield return Utils.SlideObject(gameObject, spawnPos, data.slideTime, data.easeType);
         Destroy(gameObject);
     }
@@ -118,12 +116,5 @@ public class Person : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(data.interactionPos, 0.3f);
-    }
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    private static void ResetStaticFields()
-    {
-        persons = null;
-        addedPersonsCount = 0;
     }
 }

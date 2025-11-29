@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class SlidingDoors : MonoBehaviour
 {
+    [SerializeField] private string emptySceneName;
     public static SlidingDoors instance;
-    public UnityEvent OnBeginOpen;
-    public UnityEvent OnEndOpen;
+    public UnityEvent OnBeginLoadSceneOpen;
+    public UnityEvent OnEndLoadSceneOpen;
 
     [SerializeField] private float closeTime;
     [SerializeField] private RectTransform leftSlidingDoorImage;
@@ -22,7 +24,10 @@ public class SlidingDoors : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         if (instance != null)
+        {
             Destroy(instance);
+            return;
+        }
 
         instance = this;
     }
@@ -32,28 +37,49 @@ public class SlidingDoors : MonoBehaviour
         openPosLeft = leftSlidingDoorImage.anchoredPosition;
     }
 
-    public void CloseAndLoadScene(string sceneName)
+    public void ClosedLoadSceneOpen(string sceneName)
     {
-        StartCoroutine(CloseAndLoadSceneRoutine(sceneName));
+        StartCoroutine(CloseLoadSceneOpenRoutine(sceneName));
     }
 
-    private IEnumerator CloseAndLoadSceneRoutine(string sceneName)
+    private IEnumerator CloseLoadSceneOpenRoutine(string sceneName)
     {
         leftSlidingDoorImage.gameObject.SetActive(true);
         rightSlidingDoorImage.gameObject.SetActive(true);
 
         yield return SlideUI(closedPos.anchoredPosition - new Vector2(leftSlidingDoorImage.rect.width / 2, 0), closedPos.anchoredPosition + new Vector2(rightSlidingDoorImage.rect.width / 2, 0), closeTime, closeEaseType);
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
+        yield return LoadSceneOpenRoutine(sceneName);
+    }
 
-        OnBeginOpen.Invoke();
+    public IEnumerator FinishLevel(string unloadedScene, Action callback)
+    {
+        leftSlidingDoorImage.gameObject.SetActive(true);
+        rightSlidingDoorImage.gameObject.SetActive(true);
+
+        yield return SlideUI(closedPos.anchoredPosition - new Vector2(leftSlidingDoorImage.rect.width / 2, 0), closedPos.anchoredPosition + new Vector2(rightSlidingDoorImage.rect.width / 2, 0), closeTime, closeEaseType);
+
+        SceneManager.LoadScene(emptySceneName);
+
+        callback();
+    }
+
+    public IEnumerator LoadSceneOpenRoutine(string sceneName)
+    {
+        AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
+
+        // 3. WAIT until the scene is fully loaded
+        while (!asyncLoad.isDone)
+            yield return null;
+
+        OnBeginLoadSceneOpen.Invoke();
 
         yield return SlideUI(openPosLeft - new Vector2(leftSlidingDoorImage.rect.width / 2, 0), 2 * closedPos.anchoredPosition - openPosLeft + new Vector2(rightSlidingDoorImage.rect.width / 2, 0), closeTime, openEaseType);
 
         leftSlidingDoorImage.gameObject.SetActive(false);
         rightSlidingDoorImage.gameObject.SetActive(false);
 
-        OnEndOpen.Invoke();
+        OnEndLoadSceneOpen.Invoke();
     }
 
     private IEnumerator SlideUI(Vector2 toPositionLeft, Vector2 toPositionRight, float time, Ease.EaseType easeType)

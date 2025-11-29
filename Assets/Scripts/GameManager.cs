@@ -1,8 +1,10 @@
 using FMODUnity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,11 +31,12 @@ public class GameManager : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] private HealthBar healthBar;
+    [SerializeField] private SlidingDoors slidingDoorsPrefab;
 
-    private AudioSource audioSource;
-    [SerializeField] private AudioClip music;
+    [HideInInspector] public List<Person> persons;
+    [HideInInspector] public int addedPersonsCount;
 
-    
+    private bool levelFinished;
 
     [System.Serializable] private class PersonSpawnSettings
     {
@@ -47,17 +50,17 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        RuntimeManager.GetBus("bus:/").setVolume(0);
         instance = this;
-        audioSource = GetComponent<AudioSource>();
+
+        if (SlidingDoors.instance != null)
+            SlidingDoors.instance.OnBeginLoadSceneOpen.AddListener(StartLevel);
+        else
+            StartLevel();
     }
 
     private void Start()
     {
-        if (SlidingDoors.instance != null)
-            SlidingDoors.instance.OnBeginOpen.AddListener(StartLevel);
-        else
-            StartLevel();
-
         //StartLevel(level1Data);
         /*MAKE SLIDING DOORS ON SCENE OPEN AND CLOSE
             -> LOSING AND WINNING SCREENS*/
@@ -67,7 +70,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (UnityEngine.InputSystem.Keyboard.current.oKey.wasPressedThisFrame)
-            SlidingDoors.instance.CloseAndLoadScene("Menu");
+            SlidingDoors.instance.ClosedLoadSceneOpen("Menu");
     }
 
     public void StartLevel()
@@ -165,27 +168,44 @@ public class GameManager : MonoBehaviour
 
     public void Damage(float damage)
     {
+        if (levelFinished)
+            return;
+
         healthBar.Damage(damage);
         StartCoroutine(Utils.Shake(Camera.main.gameObject, 0.2f, 0.1f));
     }
 
     public void Heal(float amount)
     {
+        if (levelFinished)
+            return;
+
         healthBar.Heal(amount);
     }
 
-    public void LevelSuccess()
+    public void OnEndLevel(bool win)
     {
-        Debug.Log("Level Success!");
+        levelFinished = true;
+        StopAllCoroutines();
+
+        Action callback;
+        if (win)
+            callback = WinDeath.instance.OnWin;
+        else
+            callback = WinDeath.instance.OnDeath;
+
+        if (SlidingDoors.instance == null)
+            Instantiate(slidingDoorsPrefab);
+
+        StartCoroutine(SlidingDoors.instance.FinishLevel(SceneManager.GetActiveScene().name, callback));
     }
 
+    public void LevelSuccess()
+        => OnEndLevel(true);
+
+
     public void Death()
-    {
-#if UNITY_EDITOR
-        EditorApplication.ExitPlaymode();
-#endif
-        Application.Quit();
-    }
+        => OnEndLevel(false);
 
 
     private void OnDrawGizmosSelected()

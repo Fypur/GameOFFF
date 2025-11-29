@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2933972300558286862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3519143324047674326}
+  - component: {fileID: 3147226608560248871}
+  - component: {fileID: 8838291059267996765}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3519143324047674326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933972300558286862}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0999, y: -2.00712, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3147226608560248871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933972300558286862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff3bb1bc143d7c143bba4d38a317ddfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  waveTime: 4
+  agressiveWaveTime: 5
+  agressiveWaveAmount: 5
+  nameChooserTime: 7
+  spawnSettings:
+    chanceToSpawn: 0.8
+    trySpawnEveryXSeconds: 0.7
+    waveChance: 0.5
+    agressiveWave: 0.2
+    osuSlider: 0.2
+    nameChooser: 0.05
+  level1Data:
+  - interaction: 0
+    popOutTime: 0
+    poppingOutFrom: 0
+    flippedX: 0
+    interactionPos: {x: -6, y: 0}
+    canvasOffset: {x: 0, y: 0}
+    slideTime: 2
+    easeType: 6
+  - interaction: 0
+    popOutTime: 1
+    poppingOutFrom: 1
+    flippedX: 1
+    interactionPos: {x: 7.5, y: 0}
+    canvasOffset: {x: 0, y: 0}
+    slideTime: 2
+    easeType: 6
+  - interaction: 0
+    popOutTime: 2
+    poppingOutFrom: 1
+    flippedX: 1
+    interactionPos: {x: 9, y: 0}
+    canvasOffset: {x: 0, y: 0}
+    slideTime: 3
+    easeType: 6
+  - interaction: 0
+    popOutTime: 3
+    poppingOutFrom: 0
+    flippedX: 0
+    interactionPos: {x: -7, y: 0}
+    canvasOffset: {x: 0, y: 0}
+    slideTime: 3
+    easeType: 6
+  - interaction: 0
+    popOutTime: 4
+    poppingOutFrom: 1
+    flippedX: 1
+    interactionPos: {x: 4, y: 0}
+    canvasOffset: {x: 0, y: 0}
+    slideTime: 3
+    easeType: 6
+  - interaction: 0
+    popOutTime: 4
+    poppingOutFrom: 1
+    flippedX: 1
+    interactionPos: {x: 7, y: 0}
+    canvasOffset: {x: 0, y: 0}
+    slideTime: 3
+    easeType: 6
+  PersonPrefab: {fileID: 2448139148945039128, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
+  leftInitPos: {x: -15, y: 0}
+  rightInitPos: {x: 15, y: 0}
+  upInitPos: {x: 0, y: 0}
+  downInitPos: {x: 0, y: 0}
+  healthBar: {fileID: 0}
+  slidingDoorsPrefab: {fileID: 6711896114594296557, guid: 35f4c3e5ba9b7e64bb7a73d0c8f6c257, type: 3}
+--- !u!114 &8838291059267996765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933972300558286862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -294457176
+      Data2: 1140980317
+      Data3: 1992312488
+      Data4: 150346648
+    Path: event:/Music/level_music_loop
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20

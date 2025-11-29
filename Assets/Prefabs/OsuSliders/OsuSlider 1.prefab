@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1311637750094021948}
   - component: {fileID: 635388142964240391}
-  - component: {fileID: 1985652071338266551}
+  - component: {fileID: 5237025810425558283}
   - component: {fileID: 5162041725858614644}
   - component: {fileID: 779390277433342160}
   m_Layer: 5
@@ -58,7 +58,7 @@ MonoBehaviour:
   distanceToLast: 0.4
   ball: {fileID: 1129838043510404233}
   parentPerson: {fileID: 0}
---- !u!114 &1985652071338266551
+--- !u!114 &5237025810425558283
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,7 +153,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1

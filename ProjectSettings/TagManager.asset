@@ -50,5 +50,8 @@ TagManager:
   - name: Sliding Door
     uniqueID: 3646952285
     locked: 0
+  - name: WinDeath
+    uniqueID: 2374470169
+    locked: 0
   m_RenderingLayers:
   - Default
