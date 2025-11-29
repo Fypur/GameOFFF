@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        //RuntimeManager.GetBus("bus:/").setVolume(0);
         instance = this;
 
         if (SlidingDoors.instance != null)
@@ -77,7 +76,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(StartRandomLevel());
         //UNCOMMENT THIS TO PLAY MUSIC
-        //GetComponent<StudioEventEmitter>().Play();
+        GetComponent<StudioEventEmitter>().Play();
     }
 
     private void StartLevel(List<Person.Data> levelData)
