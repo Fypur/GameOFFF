@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -36,6 +38,8 @@ public class ShelfItem : MonoBehaviour
             {
                 held = true;
                 offset = (Vector2)transform.position - mousePos;
+
+                Utils.AudioPlay("event:/Menu UI/grocery_pickup");
             }
 
             if (Mouse.current.leftButton.isPressed && held)
@@ -58,10 +62,17 @@ public class ShelfItem : MonoBehaviour
                     {
                         shelfSlot.Hold(this);
                         shelfManager.GenerateNextItemInHotbar(originalLocalPos);
+
+                        Utils.AudioPlay("event:/Menu UI/grocery_stack");
+
                         break;
                     }
                     else
+                    {
                         transform.localPosition = originalLocalPos;
+
+                        Utils.AudioPlay("event:/Menu UI/grocery_wrong_shelf");
+                    }
                 }
             }
         }

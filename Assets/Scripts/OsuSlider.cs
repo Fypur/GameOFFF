@@ -1,9 +1,12 @@
+using FMOD.Studio;
+using FMODUnity;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class OsuSlider : MonoBehaviour, IPointerDownHandler
 {
@@ -18,6 +21,8 @@ public class OsuSlider : MonoBehaviour, IPointerDownHandler
     private bool succeeded;
     private SpriteShapeController spriteShape;
     private EdgeCollider2D edgeCollider;
+
+    private EventInstance slidingAudio;
 
     private void Awake()
     {
@@ -38,6 +43,10 @@ public class OsuSlider : MonoBehaviour, IPointerDownHandler
     private void OnBallPointerDown()
     {
         ballSelected = true;
+        Utils.AudioPlay("event:/Interactions/osu_slider_click");
+
+        slidingAudio = RuntimeManager.CreateInstance("event:/Interactions/osu_slider_move");
+        slidingAudio.start();
     }
 
     private void OnBallPointerUp()
@@ -88,6 +97,8 @@ public class OsuSlider : MonoBehaviour, IPointerDownHandler
 
     private void End()
     {
+        if(slidingAudio.isValid())
+            slidingAudio.release();
         parentPerson.Leave();
         Destroy(gameObject);
     }

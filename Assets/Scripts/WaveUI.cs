@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -22,7 +24,7 @@ public class WaveUI : MonoBehaviour
     private void Awake()
     {
         waveBoxButton = waveBox.gameObject.GetComponent<Button>();
-        waveBoxButton.onClick.AddListener(OnClick);
+        waveBoxButton.onClick.AddListener(Success);
         perfectWindow.sizeDelta = new Vector2(waveBox.sizeDelta.x * perfectWindowTime / waveTime, perfectWindow.sizeDelta.y);
 
         StartCoroutine(Scroll());
@@ -30,8 +32,9 @@ public class WaveUI : MonoBehaviour
         //Debug.Log(rectTransform.TransformPoint(rectTransform.anchoredPosition));
     }
 
-    public void OnClick()
+    public void Success()
     {
+        Utils.AudioPlay("event:/Menu UI/button_click");
         GameManager.instance.Heal(healedAmount);
         End();
     }

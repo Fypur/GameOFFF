@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        RuntimeManager.GetBus("bus:/").setVolume(0);
+        //RuntimeManager.GetBus("bus:/").setVolume(0);
         instance = this;
 
         if (SlidingDoors.instance != null)
@@ -76,7 +76,8 @@ public class GameManager : MonoBehaviour
     public void StartLevel()
     {
         StartCoroutine(StartRandomLevel());
-        GetComponent<StudioEventEmitter>().Play();
+        //UNCOMMENT THIS TO PLAY MUSIC
+        //GetComponent<StudioEventEmitter>().Play();
     }
 
     private void StartLevel(List<Person.Data> levelData)
@@ -171,6 +172,8 @@ public class GameManager : MonoBehaviour
         if (levelFinished)
             return;
 
+        Utils.AudioPlay("event:/Interactions/pop_fail");
+
         healthBar.Damage(damage);
         StartCoroutine(Utils.Shake(Camera.main.gameObject, 0.2f, 0.1f));
     }
@@ -179,6 +182,8 @@ public class GameManager : MonoBehaviour
     {
         if (levelFinished)
             return;
+
+        Utils.AudioPlay("event:/Interactions/pop_succeed");
 
         healthBar.Heal(amount);
     }

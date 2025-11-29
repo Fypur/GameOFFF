@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FMOD.Studio;
+using FMODUnity;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -44,5 +46,12 @@ public static class Utils
     {
         yield return new WaitForSeconds(time);
         callback();
+    }
+
+    public static void AudioPlay(string eventName)
+    {
+        EventInstance eventInstance = RuntimeManager.CreateInstance(eventName);
+        eventInstance.start();
+        eventInstance.release();
     }
 }

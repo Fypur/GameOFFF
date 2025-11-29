@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +7,7 @@ public class NameChooser : MonoBehaviour
 {
     [SerializeField] private float healedAmount;
     [SerializeField] private float damage;
+    [SerializeField] private float heal;
 
     [HideInInspector] public Person parentPerson;
     [HideInInspector] public string[] possibleNames;
@@ -47,14 +50,13 @@ public class NameChooser : MonoBehaviour
 
     private void Fail()
     {
-        Debug.Log("Name chooser fail");
         GameManager.instance.Damage(damage);
         End();
     }
 
     private void Success()
     {
-        GameManager.instance.Heal(damage);
+        GameManager.instance.Heal(heal);
         End();
     }
 

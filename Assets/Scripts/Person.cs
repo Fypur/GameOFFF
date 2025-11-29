@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -103,6 +105,9 @@ public class Person : MonoBehaviour
                 break;
                 //throw new NotImplementedException();
         }
+
+        Utils.AudioPlay("event:/Ambience/person_greeting");
+        Utils.AudioPlay("event:/Interactions/pop_appear");
     }
 
     private IEnumerator LeaveCoroutine()

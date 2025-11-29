@@ -1094,10 +1094,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2696408395265630502, guid: f1d557bfa620e1542acfd58ecbcd7d5e, type: 3}
-      propertyPath: fullHealth
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2775349713998402446, guid: f1d557bfa620e1542acfd58ecbcd7d5e, type: 3}
       propertyPath: m_Name
       value: Hotbar

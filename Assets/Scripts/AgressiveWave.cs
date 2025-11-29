@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,6 +31,7 @@ public class AgressiveWave : MonoBehaviour
     private void WaveButtonClick()
     {
         waveAmount--;
+        Utils.AudioPlay("event:/Menu UI/button_click");
 
         if (waveAmount > 0)
             wavesLeftText.text = "Waves left: " + waveAmount;
