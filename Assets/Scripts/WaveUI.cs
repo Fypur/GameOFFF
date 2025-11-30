@@ -39,6 +39,11 @@ public class WaveUI : MonoBehaviour
         End();
     }
 
+    public void OnButtonHover()
+    {
+        Utils.AudioPlay("event:/Menu UI/button_hover");
+    }
+
     private void OnFail()
     {
         GameManager.instance.Damage(damage);

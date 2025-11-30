@@ -24,6 +24,21 @@ public static class Utils
         obj.transform.position = toPosition;
     }
 
+    public static IEnumerator SlideUIObject(RectTransform obj, Vector2 toPosition, float time, Ease.EaseType easeType)
+    {
+        Vector2 fromPosition = obj.anchoredPosition;
+        Func<float, float> easeFunc = easeType.ToFunc();
+        float t = 0;
+        while (t < time)
+        {
+            obj.anchoredPosition = Vector2.LerpUnclamped(fromPosition, toPosition, easeFunc(t / time));
+            t += Time.deltaTime * Time.timeScale;
+            yield return null;
+        }
+
+        obj.anchoredPosition = toPosition;
+    }
+
     public static IEnumerator Shake(GameObject obj, float time, float amplitude)
     {
         Vector3 initPos = obj.transform.position;

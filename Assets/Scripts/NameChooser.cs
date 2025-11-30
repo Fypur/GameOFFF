@@ -40,8 +40,14 @@ public class NameChooser : MonoBehaviour
         }
     }
 
+    public void OnButtonHover()
+    {
+        Utils.AudioPlay("event:/Menu UI/button_hover");
+    }
+
     private void ChooseName(int buttonIndex)
     {
+        Utils.AudioPlay("event:/Menu UI/button_click");
         if (buttonIndex == correctNameIndex)
             Success();
         else

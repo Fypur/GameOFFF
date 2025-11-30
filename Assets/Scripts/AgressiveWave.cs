@@ -28,6 +28,11 @@ public class AgressiveWave : MonoBehaviour
         timerSlider.StartTimer(waveTime, Fail);
     }
 
+    public void OnButtonHover()
+    {
+        Utils.AudioPlay("event:/Menu UI/button_hover");
+    }
+
     private void WaveButtonClick()
     {
         waveAmount--;

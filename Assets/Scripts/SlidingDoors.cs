@@ -35,6 +35,8 @@ public class SlidingDoors : MonoBehaviour
     private void Start()
     {
         openPosLeft = leftSlidingDoorImage.anchoredPosition;
+        leftSlidingDoorImage.gameObject.SetActive(false);
+        rightSlidingDoorImage.gameObject.SetActive(false);
     }
 
     public void ClosedLoadSceneOpen(string sceneName)

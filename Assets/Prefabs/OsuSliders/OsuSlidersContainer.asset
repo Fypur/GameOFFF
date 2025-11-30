@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   osuSliders:
   - {fileID: 1815290416325056882, guid: f2b36c3078f95c34186ea23bdca623ae, type: 3}
-  - {fileID: 1815290416325056882, guid: 3ca5913641c7e8e47b0a866c959447aa, type: 3}
-  - {fileID: 1815290416325056882, guid: 4bddecef6d46e7349aef7bd27798d3a4, type: 3}
+  - {fileID: 2284358281302902853, guid: 4bddecef6d46e7349aef7bd27798d3a4, type: 3}
+  - {fileID: 8100286703841633896, guid: 923682a299c738542ab71cba3b4cb879, type: 3}
+  - {fileID: 7205776644381763221, guid: 3ca5913641c7e8e47b0a866c959447aa, type: 3}
+  - {fileID: 5777475964851325670, guid: 4cc116c4761afba40b121c919c6f2247, type: 3}
+  - {fileID: 6113670987683540035, guid: 9cfc8f052304c224db9b107afdccf7ff, type: 3}
+  - {fileID: 355042141131190842, guid: f2f56ab951479cf46b11c697c7ccc1f3, type: 3}

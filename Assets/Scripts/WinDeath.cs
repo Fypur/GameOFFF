@@ -44,17 +44,22 @@ public class WinDeath : MonoBehaviour
         StartCoroutine(WinDeathSlide());
     }
 
-    private IEnumerator RestartLevel()
+    private IEnumerator MoveAndLoadScene(string scene)
     {
-        Debug.Log("restart");
         yield return StartCoroutine(Utils.SlideObject(gameObject, initPos, slideTime, Ease.EaseType.CubicOut));
-        yield return SlidingDoors.instance.LoadSceneOpenRoutine(currentLevelName);
+        yield return SlidingDoors.instance.LoadSceneOpenRoutine(scene);
+    }
+
+    public void BackToMainMenu()
+    {
+        StopAllCoroutines();
+        StartCoroutine(MoveAndLoadScene("Menu"));
     }
 
     private IEnumerator WinDeathSlide()
     {
         yield return Utils.SlideObject(gameObject, Vector2.zero, slideTime, Ease.EaseType.CubicOut);
-        restartButton.onClick.AddListener(() => { StopAllCoroutines(); StartCoroutine(RestartLevel()); });
+        restartButton.onClick.AddListener(() => { StopAllCoroutines(); StartCoroutine(MoveAndLoadScene(currentLevelName)); });
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

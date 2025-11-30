@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(StartRandomLevel());
         //UNCOMMENT THIS TO PLAY MUSIC
-        GetComponent<StudioEventEmitter>().Play();
+        //GetComponent<StudioEventEmitter>().Play();
     }
 
     private void StartLevel(List<Person.Data> levelData)
