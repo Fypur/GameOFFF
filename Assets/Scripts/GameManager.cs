@@ -46,8 +46,12 @@ public class GameManager : MonoBehaviour
         public float agressiveWave = 0.1f;
         public float osuSlider = 0.1f;
         public float nameChooser = 0.1f;
-    }
 
+        public string[] correctNames;
+        public 
+        public string[][] fakeNames;
+    }
+    
     private void Awake()
     {
         instance = this;

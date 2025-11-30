@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 public enum Interactions { Wave, NameChoice, AgressiveWave, Osu, HandShake, SmallTalk, Bowing, Robot, Opp }
 public enum Direction { Left, Right, Down, Up }
+public enum Accessories { Hat, Cap }
 
 public static class Utils
 {
