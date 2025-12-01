@@ -34,7 +34,7 @@ public class WaveUI : MonoBehaviour
 
     public void Success()
     {
-        Utils.AudioPlay("event:/Menu UI/button_click");
+        //Utils.AudioPlay("event:/Menu UI/button_click");
         GameManager.instance.Heal(healedAmount);
         End();
     }

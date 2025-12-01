@@ -97,8 +97,11 @@ public class OsuSlider : MonoBehaviour, IPointerDownHandler
 
     private void End()
     {
-        if(slidingAudio.isValid())
+        if (slidingAudio.isValid())
+        {
+            slidingAudio.stop(STOP_MODE.ALLOWFADEOUT);
             slidingAudio.release();
+        }
         parentPerson.Leave();
         Destroy(gameObject);
     }

@@ -19,7 +19,6 @@ public class ShelfManager : MonoBehaviour
 
     private List<ShelfItem.ItemType> items = new();
     private int currentItemIndex = 0;
-    private static System.Random rng = new System.Random();
 
     private void Awake()
     {
@@ -42,7 +41,7 @@ public class ShelfManager : MonoBehaviour
             for(int j = 0; j < numItemsPerShelf[i]; j++)
                 items.Add((ShelfItem.ItemType)i);
 
-        Shuffle(items);
+        Utils.Shuffle(items);
     }
 
     public void GenerateNextItemInHotbar(Vector2 originalLocalPos)
@@ -72,25 +71,9 @@ public class ShelfManager : MonoBehaviour
             GameManager.instance.LevelSuccess();
     }
 
-
-    //https://stackoverflow.com/questions/273313/randomize-a-listt thanks stackoverflow as always
-    private static void Shuffle<T>(IList<T> list)
-    {
-        int n = list.Count;
-        while (n > 1)
-        {
-            n--;
-            int k = rng.Next(n + 1);
-            T value = list[k];
-            list[k] = list[n];
-            list[n] = value;
-        }
-    }
-
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void ResetStaticFields()
     {
         instance = null;
-        rng = new();
     }
 }

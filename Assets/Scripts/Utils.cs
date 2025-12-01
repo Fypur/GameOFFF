@@ -2,6 +2,7 @@
 using FMODUnity;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 public enum Interactions { Wave, NameChoice, AgressiveWave, Osu, HandShake, SmallTalk, Bowing, Robot, Opp }
@@ -10,6 +11,7 @@ public enum Accessories { Hat, Cap }
 
 public static class Utils
 {
+    private static System.Random rng = new System.Random();
     public static IEnumerator SlideObject(GameObject obj, Vector2 toPosition, float time, Ease.EaseType easeType)
     {
         Vector2 fromPosition = obj.transform.position;
@@ -69,5 +71,25 @@ public static class Utils
         EventInstance eventInstance = RuntimeManager.CreateInstance(eventName);
         eventInstance.start();
         eventInstance.release();
+    }
+
+    //https://stackoverflow.com/questions/273313/randomize-a-listt thanks stackoverflow as always
+    public static void Shuffle<T>(IList<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void ResetStaticFields()
+    {
+        rng = new();
     }
 }

@@ -2,9 +2,11 @@ using FMODUnity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,12 +33,15 @@ public class GameManager : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] private HealthBar healthBar;
+    [SerializeField] private IDCards IDCards;
     [SerializeField] private SlidingDoors slidingDoorsPrefab;
 
     [HideInInspector] public List<Person> persons;
     [HideInInspector] public int addedPersonsCount;
 
     private bool levelFinished;
+    private int nameChooserIndex;
+    private Vector2 originalIdPos;
 
     [System.Serializable] private class PersonSpawnSettings
     {
@@ -47,27 +52,26 @@ public class GameManager : MonoBehaviour
         public float osuSlider = 0.1f;
         public float nameChooser = 0.1f;
 
-        public string[] correctNames;
-        public 
-        public string[][] fakeNames;
+        public NameChooserSettings[] nameChooserSettings;
+    }
+
+    [System.Serializable] public class NameChooserSettings
+    {
+        public string name;
+        public string[] fakeNames;
+        public Accessories accessory;
     }
     
     private void Awake()
     {
         instance = this;
 
+        nameChooserIndex = UnityEngine.Random.Range(0, spawnSettings.nameChooserSettings.Length);
+
         if (SlidingDoors.instance != null)
             SlidingDoors.instance.OnBeginLoadSceneOpen.AddListener(StartLevel);
         else
             StartLevel();
-    }
-
-    private void Start()
-    {
-        //StartLevel(level1Data);
-        /*MAKE SLIDING DOORS ON SCENE OPEN AND CLOSE
-            -> LOSING AND WINNING SCREENS*/
-        
     }
 
     private void Update()
@@ -78,9 +82,37 @@ public class GameManager : MonoBehaviour
 
     public void StartLevel()
     {
+        if(spawnSettings.nameChooserSettings.Length == 0)
+        {
+            if(SlidingDoors.instance != null)
+                SlidingDoors.instance.Open();
+            StartCoroutine(StartRandomLevel());
+        }
+        else
+        {
+            for (int i = spawnSettings.nameChooserSettings.Length; i < IDCards.ids.Length; i++)
+                IDCards.ids[i].SetActive(false);
+            for (int i = 0; i < spawnSettings.nameChooserSettings.Length; i++)
+            {
+                IDCards.ids[i].GetComponentInChildren<TMP_Text>().text = spawnSettings.nameChooserSettings[i].name;
+                //SET ACCESSORY SPRITE HERE
+                //IDCards.ids[i].GetComponentInChildren<Image>().sprite = accessorySprite;
+            }
+
+
+            originalIdPos = IDCards.GetComponent<RectTransform>().anchoredPosition;
+            StartCoroutine(Utils.SlideUIObject(IDCards.GetComponent<RectTransform>(), Vector2.zero, 1f, Ease.EaseType.CubicOut));
+            if(SlidingDoors.instance != null)
+                IDCards.playButton.onClick.AddListener(SlidingDoors.instance.Open);
+            
+            IDCards.playButton.onClick.AddListener(StartLevelAfterID);
+        }
+    }
+
+    public void StartLevelAfterID()
+    {
+        StartCoroutine(Utils.SlideUIObject(IDCards.GetComponent<RectTransform>(), originalIdPos, 1f, Ease.EaseType.CubicIn));
         StartCoroutine(StartRandomLevel());
-        //UNCOMMENT THIS TO PLAY MUSIC
-        //GetComponent<StudioEventEmitter>().Play();
     }
 
     private void StartLevel(List<Person.Data> levelData)
@@ -91,6 +123,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartRandomLevel()
     {
+        //UNCOMMENT THIS TO PLAY MUSIC
+        //GetComponent<StudioEventEmitter>().Play();
+
         float t = spawnSettings.trySpawnEveryXSeconds;
         while (true)
         {
@@ -109,7 +144,12 @@ public class GameManager : MonoBehaviour
                     else if (r <= spawnSettings.waveChance + spawnSettings.agressiveWave)
                         data.interaction = Interactions.AgressiveWave;
                     else if (r <= spawnSettings.waveChance + spawnSettings.agressiveWave + spawnSettings.nameChooser)
+                    {
                         data.interaction = Interactions.NameChoice;
+                        data.nameChooserSettings = spawnSettings.nameChooserSettings[nameChooserIndex++];
+                        if (nameChooserIndex >= spawnSettings.nameChooserSettings.Length)
+                            nameChooserIndex = 0;
+                    }
                     else if (r <= spawnSettings.waveChance + spawnSettings.agressiveWave + spawnSettings.nameChooser + spawnSettings.osuSlider)
                         data.interaction = Interactions.Osu;
 

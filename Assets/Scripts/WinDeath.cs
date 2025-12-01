@@ -47,7 +47,8 @@ public class WinDeath : MonoBehaviour
     private IEnumerator MoveAndLoadScene(string scene)
     {
         yield return StartCoroutine(Utils.SlideObject(gameObject, initPos, slideTime, Ease.EaseType.CubicOut));
-        yield return SlidingDoors.instance.LoadSceneOpenRoutine(scene);
+        yield return SlidingDoors.instance.LoadSceneRoutine(scene);
+        yield return SlidingDoors.instance.OpenRoutine();
     }
 
     public void BackToMainMenu()

@@ -1,8 +1,8 @@
+using FMOD.Studio;
 using FMODUnity;
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
@@ -17,12 +17,16 @@ public class Menu : MonoBehaviour
     [SerializeField] private Ease.EaseType easeOut;
 
     private RectTransform currentMenu;
+    private EventInstance menuMusic;
 
     private void Start()
     {
         currentMenu = playMenu;
-        RuntimeManager.GetBus("SFX:/").setVolume(0.7f);
-        RuntimeManager.GetBus("music:/").setVolume(0.7f);
+        RuntimeManager.GetBus("bus:/SFX").setVolume(0.7f);
+        RuntimeManager.GetBus("bus:/Music").setVolume(0.7f);
+
+        menuMusic = RuntimeManager.CreateInstance("event:/Music/menu_music_loop");
+        menuMusic.start();
     }
 
     public void Quit()
@@ -72,17 +76,19 @@ public class Menu : MonoBehaviour
     public void PlayLevel(int level)
     {
         Utils.AudioPlay("event:/Menu UI/button_click");
-        SlidingDoors.instance.ClosedLoadSceneOpen("Level" + level);
+        menuMusic.stop(STOP_MODE.ALLOWFADEOUT);
+        menuMusic.release();
+        SlidingDoors.instance.ClosedLoadScene("Level" + level);
     }
 
     public void SetSFXVolume(Slider volume)
     {
-        RuntimeManager.GetBus("SFX:/").setVolume(volume.value);
+        RuntimeManager.GetBus("bus:/SFX").setVolume(volume.value);
     }
 
     public void SetMusicVolume(Slider volume)
     {
-        RuntimeManager.GetBus("music:/").setVolume(volume.value);
+        RuntimeManager.GetBus("bus:/Music").setVolume(volume.value);
     }
 
     private IEnumerator SlideInNOut(RectTransform outMenu, RectTransform inMenu)
@@ -93,11 +99,11 @@ public class Menu : MonoBehaviour
         foreach (Button button in outMenu.GetComponentsInChildren<Button>())
             button.interactable = false;
 
+        foreach (Button button in inMenu.GetComponentsInChildren<Button>())
+            button.interactable = true;
+
         yield return Utils.SlideUIObject(outMenu, outPosition, switchTime / 2, easeOut);
         yield return Utils.SlideUIObject(inMenu, Vector2.zero, switchTime / 2, easeIn);
-
-        foreach (Button button in outMenu.GetComponentsInChildren<Button>())
-            button.interactable = true;
 
         outMenu.gameObject.SetActive(false);
     }

@@ -39,9 +39,26 @@ public class SlidingDoors : MonoBehaviour
         rightSlidingDoorImage.gameObject.SetActive(false);
     }
 
+    //Most spaghetti shit of all time but I'm tired
     public void ClosedLoadSceneOpen(string sceneName)
     {
         StartCoroutine(CloseLoadSceneOpenRoutine(sceneName));
+    }
+
+    public void ClosedLoadScene(string sceneName)
+    {
+        StartCoroutine(CloseLoadSceneRoutine(sceneName));
+    }
+
+    private IEnumerator CloseLoadSceneRoutine(string sceneName)
+    {
+        leftSlidingDoorImage.gameObject.SetActive(true);
+        rightSlidingDoorImage.gameObject.SetActive(true);
+
+        Utils.AudioPlay("event:/Menu UI/sliding_door_close");
+        yield return SlideUI(closedPos.anchoredPosition - new Vector2(leftSlidingDoorImage.rect.width / 2, 0), closedPos.anchoredPosition + new Vector2(rightSlidingDoorImage.rect.width / 2, 0), closeTime, closeEaseType);
+
+        yield return LoadSceneRoutine(sceneName);
     }
 
     private IEnumerator CloseLoadSceneOpenRoutine(string sceneName)
@@ -49,9 +66,11 @@ public class SlidingDoors : MonoBehaviour
         leftSlidingDoorImage.gameObject.SetActive(true);
         rightSlidingDoorImage.gameObject.SetActive(true);
 
+        Utils.AudioPlay("event:/Menu UI/sliding_door_close");
         yield return SlideUI(closedPos.anchoredPosition - new Vector2(leftSlidingDoorImage.rect.width / 2, 0), closedPos.anchoredPosition + new Vector2(rightSlidingDoorImage.rect.width / 2, 0), closeTime, closeEaseType);
 
-        yield return LoadSceneOpenRoutine(sceneName);
+        yield return LoadSceneRoutine(sceneName);
+        yield return OpenRoutine();
     }
 
     public IEnumerator FinishLevel(string unloadedScene, Action callback)
@@ -59,6 +78,7 @@ public class SlidingDoors : MonoBehaviour
         leftSlidingDoorImage.gameObject.SetActive(true);
         rightSlidingDoorImage.gameObject.SetActive(true);
 
+        Utils.AudioPlay("event:/Menu UI/sliding_door_close");
         yield return SlideUI(closedPos.anchoredPosition - new Vector2(leftSlidingDoorImage.rect.width / 2, 0), closedPos.anchoredPosition + new Vector2(rightSlidingDoorImage.rect.width / 2, 0), closeTime, closeEaseType);
 
         SceneManager.LoadScene(emptySceneName);
@@ -66,7 +86,7 @@ public class SlidingDoors : MonoBehaviour
         callback();
     }
 
-    public IEnumerator LoadSceneOpenRoutine(string sceneName)
+    public IEnumerator LoadSceneRoutine(string sceneName)
     {
         AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Single);
 
@@ -75,6 +95,14 @@ public class SlidingDoors : MonoBehaviour
             yield return null;
 
         OnBeginLoadSceneOpen.Invoke();
+    }
+
+    public void Open()
+        => StartCoroutine(OpenRoutine());
+
+    public IEnumerator OpenRoutine()
+    {
+        Utils.AudioPlay("event:/Menu UI/sliding_door_open");
 
         yield return SlideUI(openPosLeft - new Vector2(leftSlidingDoorImage.rect.width / 2, 0), 2 * closedPos.anchoredPosition - openPosLeft + new Vector2(rightSlidingDoorImage.rect.width / 2, 0), closeTime, openEaseType);
 

@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameManager;
 
 public class Person : MonoBehaviour
 {
@@ -20,11 +21,14 @@ public class Person : MonoBehaviour
         public float slideTime;
 
         public Ease.EaseType easeType;
+        public GameManager.NameChooserSettings nameChooserSettings;
     }
 
     public Data data;
 
     public Canvas canvas;
+
+    [SerializeField] private SpriteRenderer accessorySprite;
 
     [SerializeField] private GameObject waveUIPrefab;
     [SerializeField] private GameObject nameChooserPrefab;
@@ -86,10 +90,7 @@ public class Person : MonoBehaviour
                 break;
             case Interactions.NameChoice:
                 NameChooser nameChooser = Instantiate(nameChooserPrefab, canvas.transform).GetComponent<NameChooser>();
-                nameChooser.parentPerson = this;
-                //TODO: Make this depend on the actual person name etc
-                nameChooser.possibleNames = new string[] { "Adam", "Amad", "Axel", "Adem" };
-                nameChooser.correctNameIndex = 3;
+                SetupNameChooser(nameChooser);
                 break;
             case Interactions.AgressiveWave:
                 AgressiveWave agressiveWave = Instantiate(agressiveWavePrefab, canvas.transform).GetComponent<AgressiveWave>();
@@ -121,5 +122,37 @@ public class Person : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(data.interactionPos, 0.3f);
+    }
+
+    private void SetupNameChooser(NameChooser nameChooser)
+    {
+        string[] possibleNames = new string[4];
+        for (int i = 0; i < possibleNames.Length - 1; i++)
+            possibleNames[i] = data.nameChooserSettings.fakeNames[i];
+        possibleNames[possibleNames.Length - 1] = data.nameChooserSettings.name;
+
+        Utils.Shuffle(possibleNames);
+
+        int correctIndex = 0;
+        for(int i = 1; i < possibleNames.Length; i++)
+        {
+            if (possibleNames[i] == data.nameChooserSettings.name)
+            {
+                correctIndex = i;
+                break;
+            }
+        }
+
+        nameChooser.parentPerson = this;
+        nameChooser.possibleNames = possibleNames;
+        nameChooser.correctNameIndex = correctIndex;
+
+        //SET ACCESSORY SPRITE HERE
+        //accessorySprite.gameObject.SetActive(true);
+        /*switch (data.nameChooserSettings.accessory)
+        {
+            case Accessories.Hat:
+                accessorySprite.sprite = 
+        }*/
     }
 }
