@@ -675,16 +675,52 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1080277529}
     - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: showTutorial
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: showOsuTutorial
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
       propertyPath: spawnSettings.osuSlider
-      value: 0.25
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.waveChance
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
       propertyPath: spawnSettings.nameChooser
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
       propertyPath: spawnSettings.chanceToSpawn
-      value: 0.5
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.trySpawnEveryXSeconds
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.nameChooserSettings.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.nameChooserSettings.Array.data[0].name
+      value: Leon
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.nameChooserSettings.Array.data[0].accessory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: 'spawnSettings.nameChooserSettings.Array.data[0].fakeNames.Array.data[0]'
+      value: Lein
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: 'spawnSettings.nameChooserSettings.Array.data[0].fakeNames.Array.data[1]'
+      value: Liam
       objectReference: {fileID: 0}
     - target: {fileID: 3519143324047674326, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
       propertyPath: m_LocalPosition.x
@@ -826,6 +862,10 @@ PrefabInstance:
     - target: {fileID: 8748791130013161843, guid: 2730c146ce5e01341965c08a0ef51824, type: 3}
       propertyPath: m_Name
       value: IDCards
+      objectReference: {fileID: 0}
+    - target: {fileID: 8748791130013161843, guid: 2730c146ce5e01341965c08a0ef51824, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

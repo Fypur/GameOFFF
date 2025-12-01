@@ -684,7 +684,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
       propertyPath: spawnSettings.chanceToSpawn
-      value: 0.5
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.trySpawnEveryXSeconds
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.nameChooserSettings.Array.data[0].name
+      value: Evan
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.nameChooserSettings.Array.data[1].name
+      value: Alex
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: 'spawnSettings.nameChooserSettings.Array.data[0].fakeNames.Array.data[0]'
+      value: Ewan
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: 'spawnSettings.nameChooserSettings.Array.data[0].fakeNames.Array.data[1]'
+      value: Eden
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: 'spawnSettings.nameChooserSettings.Array.data[1].fakeNames.Array.data[0]'
+      value: Axel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: 'spawnSettings.nameChooserSettings.Array.data[1].fakeNames.Array.data[1]'
+      value: Anya
       objectReference: {fileID: 0}
     - target: {fileID: 3519143324047674326, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
       propertyPath: m_LocalPosition.x

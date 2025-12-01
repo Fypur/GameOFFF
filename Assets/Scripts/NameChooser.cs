@@ -16,7 +16,6 @@ public class NameChooser : MonoBehaviour
     [SerializeField] private Button button0;
     [SerializeField] private Button button1;
     [SerializeField] private Button button2;
-    [SerializeField] private Button button3;
     [SerializeField] private TimerSlider timerSlider;
 
     private void Awake()
@@ -24,7 +23,6 @@ public class NameChooser : MonoBehaviour
         button0.onClick.AddListener(() => ChooseName(0));
         button1.onClick.AddListener(() => ChooseName(1));
         button2.onClick.AddListener(() => ChooseName(2));
-        button3.onClick.AddListener(() => ChooseName(3));
     }
 
     private void Start()
@@ -36,7 +34,6 @@ public class NameChooser : MonoBehaviour
             button0.gameObject.GetComponentInChildren<TMPro.TMP_Text>().text = possibleNames[0];
             button1.gameObject.GetComponentInChildren<TMPro.TMP_Text>().text = possibleNames[1];
             button2.gameObject.GetComponentInChildren<TMPro.TMP_Text>().text = possibleNames[2];
-            button3.gameObject.GetComponentInChildren<TMPro.TMP_Text>().text = possibleNames[3];
         }
     }
 

@@ -2,6 +2,7 @@ using FMOD.Studio;
 using FMODUnity;
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static Ease;
@@ -20,6 +21,7 @@ public class WaveUI : MonoBehaviour
     [SerializeField] private RectTransform waveBox;
     private Button waveBoxButton;
     [SerializeField] private RectTransform perfectWindow;
+    [SerializeField] private GameObject titleText;
 
     private void Awake()
     {
@@ -28,7 +30,9 @@ public class WaveUI : MonoBehaviour
         perfectWindow.sizeDelta = new Vector2(waveBox.sizeDelta.x * perfectWindowTime / waveTime, perfectWindow.sizeDelta.y);
 
         StartCoroutine(Scroll());
+        StartCoroutine(Rotate(0.5f, 45 / 2, 20));
 
+        titleText.SetActive(GameManager.instance.showTutorial);
         //Debug.Log(rectTransform.TransformPoint(rectTransform.anchoredPosition));
     }
 
@@ -54,6 +58,29 @@ public class WaveUI : MonoBehaviour
     {
         parentPerson.Leave();
         Destroy(gameObject);
+    }
+
+    private IEnumerator Rotate(float time, float leftRot, float rightRot)
+    {
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, -leftRot));
+        while (true)
+        {
+            float t = 0;
+            while(t <= time)
+            {
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(-leftRot, rightRot, Ease.CubeInAndOut(t / time))));
+                t += Time.deltaTime * Time.timeScale;
+                yield return null;
+            }
+
+            t = 0;
+            while (t <= time)
+            {
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(rightRot, -leftRot, Ease.CubeInAndOut(t / time))));
+                t += Time.deltaTime * Time.timeScale;
+                yield return null;
+            }
+        }
     }
 
     private IEnumerator Scroll()

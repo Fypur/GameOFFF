@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e12ef14261310c741a43e04e6b8b11e0
+guid: bda08984a556b9d4180ab643e19c097d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2963102915108916241
-    second: gameon_-_UI_-_wave_hand_0
+      213: 8009353237370602095
+    second: personFace_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gameon_-_UI_-_wave_hand_0
+      name: personFace_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 251
-        height: 265
+        width: 165
+        height: 227
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fe332001991f0e6d0800000000000000
-      internalID: -2963102915108916241
+      spriteID: f6289128550f62f60800000000000000
+      internalID: 8009353237370602095
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      gameon_-_UI_-_wave_hand_0: -2963102915108916241
+      personFace_0: 8009353237370602095
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -126,7 +126,7 @@ public class Person : MonoBehaviour
 
     private void SetupNameChooser(NameChooser nameChooser)
     {
-        string[] possibleNames = new string[4];
+        string[] possibleNames = new string[3];
         for (int i = 0; i < possibleNames.Length - 1; i++)
             possibleNames[i] = data.nameChooserSettings.fakeNames[i];
         possibleNames[possibleNames.Length - 1] = data.nameChooserSettings.name;

@@ -49,13 +49,26 @@ MonoBehaviour:
   agressiveWaveTime: 5
   agressiveWaveAmount: 5
   nameChooserTime: 7
+  showTutorial: 0
+  showOsuTutorial: 0
   spawnSettings:
-    chanceToSpawn: 0.8
-    trySpawnEveryXSeconds: 0.7
-    waveChance: 0.5
-    agressiveWave: 0.2
+    chanceToSpawn: 0.6
+    trySpawnEveryXSeconds: 1
+    waveChance: 0.6
+    agressiveWave: 0.1
     osuSlider: 0.2
     nameChooser: 0.05
+    nameChooserSettings:
+    - name: Adam
+      fakeNames:
+      - Adem
+      - Amad
+      accessory: 0
+    - name: Leon
+      fakeNames:
+      - Lein
+      - Liam
+      accessory: 1
   level1Data:
   - interaction: 0
     popOutTime: 0
@@ -65,6 +78,10 @@ MonoBehaviour:
     canvasOffset: {x: 0, y: 0}
     slideTime: 2
     easeType: 6
+    nameChooserSettings:
+      name: 
+      fakeNames: []
+      accessory: 0
   - interaction: 0
     popOutTime: 1
     poppingOutFrom: 1
@@ -73,6 +90,10 @@ MonoBehaviour:
     canvasOffset: {x: 0, y: 0}
     slideTime: 2
     easeType: 6
+    nameChooserSettings:
+      name: 
+      fakeNames: []
+      accessory: 0
   - interaction: 0
     popOutTime: 2
     poppingOutFrom: 1
@@ -81,6 +102,10 @@ MonoBehaviour:
     canvasOffset: {x: 0, y: 0}
     slideTime: 3
     easeType: 6
+    nameChooserSettings:
+      name: 
+      fakeNames: []
+      accessory: 0
   - interaction: 0
     popOutTime: 3
     poppingOutFrom: 0
@@ -89,6 +114,10 @@ MonoBehaviour:
     canvasOffset: {x: 0, y: 0}
     slideTime: 3
     easeType: 6
+    nameChooserSettings:
+      name: 
+      fakeNames: []
+      accessory: 0
   - interaction: 0
     popOutTime: 4
     poppingOutFrom: 1
@@ -97,6 +126,10 @@ MonoBehaviour:
     canvasOffset: {x: 0, y: 0}
     slideTime: 3
     easeType: 6
+    nameChooserSettings:
+      name: 
+      fakeNames: []
+      accessory: 0
   - interaction: 0
     popOutTime: 4
     poppingOutFrom: 1
@@ -105,13 +138,21 @@ MonoBehaviour:
     canvasOffset: {x: 0, y: 0}
     slideTime: 3
     easeType: 6
+    nameChooserSettings:
+      name: 
+      fakeNames: []
+      accessory: 0
   PersonPrefab: {fileID: 2448139148945039128, guid: 2139e26411528b046b10a4e6911a931c, type: 3}
   leftInitPos: {x: -15, y: 0}
   rightInitPos: {x: 15, y: 0}
   upInitPos: {x: 0, y: 0}
   downInitPos: {x: 0, y: 0}
   healthBar: {fileID: 0}
+  IDCards: {fileID: 0}
   slidingDoorsPrefab: {fileID: 6711896114594296557, guid: 35f4c3e5ba9b7e64bb7a73d0c8f6c257, type: 3}
+  explosionParticle: {fileID: 6447462456776508884, guid: fd04c198da72809478e158cb5c83fbfb, type: 3}
+  persons: []
+  addedPersonsCount: 0
 --- !u!114 &8838291059267996765
 MonoBehaviour:
   m_ObjectHideFlags: 0

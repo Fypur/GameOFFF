@@ -684,7 +684,59 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
       propertyPath: spawnSettings.chanceToSpawn
-      value: 0.5
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.trySpawnEveryXSeconds
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.nameChooserSettings.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.nameChooserSettings.Array.data[0].name
+      value: Solo
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.nameChooserSettings.Array.data[1].name
+      value: Mark
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.nameChooserSettings.Array.data[2].name
+      value: Milo
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.nameChooserSettings.Array.data[2].accessory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: spawnSettings.nameChooserSettings.Array.data[2].fakeNames.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: 'spawnSettings.nameChooserSettings.Array.data[0].fakeNames.Array.data[0]'
+      value: Sola
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: 'spawnSettings.nameChooserSettings.Array.data[0].fakeNames.Array.data[1]'
+      value: Cora
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: 'spawnSettings.nameChooserSettings.Array.data[1].fakeNames.Array.data[0]'
+      value: Marc
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: 'spawnSettings.nameChooserSettings.Array.data[1].fakeNames.Array.data[1]'
+      value: Matt
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: 'spawnSettings.nameChooserSettings.Array.data[2].fakeNames.Array.data[0]'
+      value: Niko
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147226608560248871, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
+      propertyPath: 'spawnSettings.nameChooserSettings.Array.data[2].fakeNames.Array.data[1]'
+      value: Dino
       objectReference: {fileID: 0}
     - target: {fileID: 3519143324047674326, guid: 5c71a074742d70548b1e09ff4e1f4346, type: 3}
       propertyPath: m_LocalPosition.x

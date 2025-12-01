@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public float nameChooserTime = 7f;
 
     [Header("Level Data")]
+    public bool showTutorial;
+    public bool showOsuTutorial;
     [SerializeField] private PersonSpawnSettings spawnSettings;
     [SerializeField] private List<Person.Data> level1Data;
 

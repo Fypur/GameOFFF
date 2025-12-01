@@ -15,6 +15,7 @@ public class OsuSlider : MonoBehaviour, IPointerDownHandler
     [SerializeField] private float healAmount = 10f;
     [SerializeField] private float distanceToLast = 0.4f;
     [SerializeField] private OsuBall ball;
+    [SerializeField] private GameObject tutorialText;
 
     [HideInInspector] public Person parentPerson;
     private bool ballSelected;
@@ -38,6 +39,7 @@ public class OsuSlider : MonoBehaviour, IPointerDownHandler
     private void Start()
     {
         StartCoroutine(Utils.TimerThen(slideTime, () => { if (!succeeded) Fail(); }));
+        tutorialText.SetActive(GameManager.instance.showOsuTutorial);
     }
 
     private void OnBallPointerDown()
