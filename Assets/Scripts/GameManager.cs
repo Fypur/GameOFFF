@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartRandomLevel()
     {
         //UNCOMMENT THIS TO PLAY MUSIC
-        //GetComponent<StudioEventEmitter>().Play();
+        GetComponent<StudioEventEmitter>().Play();
 
         float t = spawnSettings.trySpawnEveryXSeconds;
         while (true)
