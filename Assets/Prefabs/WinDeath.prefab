@@ -57,6 +57,7 @@ MonoBehaviour:
   slideTime: 2
   easeType: 2
   restartButton: {fileID: 7841981950295979152}
+  confettiParticle: {fileID: 1720432205803461931, guid: 07b3a9c8e07323a4f9c224d0f50c3291, type: 3}
 --- !u!223 &2307352270276199398
 Canvas:
   m_ObjectHideFlags: 0
@@ -102,7 +103,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2557256880922724911
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class WinDeath : MonoBehaviour
     [SerializeField] private float slideTime = 2f;
     [SerializeField] private Ease.EaseType easeType;
     [SerializeField] private Button restartButton;
+    [SerializeField] private GameObject confettiParticle;
 
     private Vector2 initPos;
     private string currentLevelName;
@@ -36,6 +37,9 @@ public class WinDeath : MonoBehaviour
     public void OnWin()
     {
         //choose win image
+        //play win sfx
+        GameObject confetti = Instantiate(confettiParticle, new Vector2(0, -6.22f), Quaternion.identity);
+        DontDestroyOnLoad(confetti);
         restartButton.GetComponentInChildren<TMP_Text>().text = "Next Level";
         string nextLevelName = currentLevelName.Substring(0, currentLevelName.Length - 1) + (char.GetNumericValue(currentLevelName[currentLevelName.Length - 1]) + 1);
         restartButton.onClick.AddListener(() => { StopAllCoroutines(); StartCoroutine(MoveAndLoadScene(nextLevelName)); });

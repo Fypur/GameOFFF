@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShelfSlot : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class ShelfSlot : MonoBehaviour
         item.transform.localPosition = Vector3.zero;
 
         Instantiate(explosionParticle, transform);
+
+        GetComponent<Image>().enabled = false;
 
         ShelfManager.instance.AddFinishedSlot();
     }

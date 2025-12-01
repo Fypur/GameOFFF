@@ -247,27 +247,13 @@ public class GameManager : MonoBehaviour
         levelFinished = true;
         StopAllCoroutines();
 
-        Action callback;
-        if (win)
-        {
-            callback = WinDeath.instance.OnWin;
-
-        }
-        else
-        {
-            //Pitch_Up
-            //Tape_Stop
-            callback = WinDeath.instance.OnDeath;
-            StartCoroutine(TapeStop(1f, 3f));
-        }
-
         if (SlidingDoors.instance == null)
             Instantiate(slidingDoorsPrefab);
 
-        StartCoroutine(SlidingDoors.instance.FinishLevel(SceneManager.GetActiveScene().name, callback));
+        StartCoroutine(WinPopPeople(win));
     }
 
-    public IEnumerator TapeStop(float endValue, float time)
+    private IEnumerator TapeStop(float endValue, float time)
     {
         music.getParameterByName("Tape_Stop", out float startValue);
         float t = 0;
@@ -279,6 +265,45 @@ public class GameManager : MonoBehaviour
         }
 
         music.setParameterByName("Tape_Stop", endValue, false);
+    }
+
+    private IEnumerator WinPopPeople(bool win)
+    {
+        Action callback;
+        if (win)
+        {
+            callback = WinDeath.instance.OnWin;
+            music.stop(STOP_MODE.ALLOWFADEOUT);
+            music.release();
+
+        }
+        else
+        {
+            callback = WinDeath.instance.OnDeath;
+            StartCoroutine(TapeStop(1f, 3f));
+        }
+
+        if (win)
+        {
+            for (int i = persons.Count - 1; i >= 0; i--)
+            {
+                if (persons[i] == null)
+                    continue;
+
+                Instantiate(explosionParticle, persons[i].transform.position, Quaternion.identity);
+                Utils.AudioPlay("event:/Interactions/pop_appear");
+                Destroy(persons[i].gameObject);
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+
+        yield return SlidingDoors.instance.FinishLevel(SceneManager.GetActiveScene().name, callback);
+    }
+
+    private void Update()
+    {
+        if (Keyboard.current.oKey.wasPressedThisFrame)
+            LevelSuccess();
     }
 
     public void LevelSuccess()
