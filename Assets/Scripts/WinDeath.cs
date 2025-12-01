@@ -44,7 +44,22 @@ public class WinDeath : MonoBehaviour
         DontDestroyOnLoad(confetti);
         restartButton.GetComponentInChildren<TMP_Text>().text = "Next Level";
         string nextLevelName = currentLevelName.Substring(0, currentLevelName.Length - 1) + (char.GetNumericValue(currentLevelName[currentLevelName.Length - 1]) + 1);
-        restartButton.onClick.AddListener(() => { StopAllCoroutines(); StartCoroutine(MoveAndLoadScene(nextLevelName)); });
+
+        if (nextLevelName == "Level6")
+            restartButton.gameObject.SetActive(false);
+
+        restartButton.onClick.AddListener(() =>
+        {
+            StopAllCoroutines();
+            if (nextLevelName != "Menu")
+            {
+                StartCoroutine(MoveAndLoadScene(nextLevelName));
+                currentLevelName = nextLevelName;
+            }
+            else
+                BackToMainMenu();
+
+        });
         StartCoroutine(WinDeathSlide());
     }
 
@@ -64,11 +79,19 @@ public class WinDeath : MonoBehaviour
         yield return SlidingDoors.instance.LoadSceneRoutine(scene);
     }
 
+    private IEnumerator MoveAndLoadMenu()
+    {
+        Utils.AudioPlay("event:/Menu UI/button_click");
+        yield return StartCoroutine(Utils.SlideObject(gameObject, initPos, slideTime, Ease.EaseType.CubicIn));
+        yield return SlidingDoors.instance.LoadSceneRoutine("Menu");
+        yield return SlidingDoors.instance.OpenRoutine();
+    }
+
     public void BackToMainMenu()
     {
         Utils.AudioPlay("event:/Menu UI/button_click");
         StopAllCoroutines();
-        StartCoroutine(MoveAndLoadScene("Menu"));
+        StartCoroutine(MoveAndLoadMenu());
     }
 
     private IEnumerator WinDeathSlide()

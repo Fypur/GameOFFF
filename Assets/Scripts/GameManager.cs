@@ -302,11 +302,11 @@ public class GameManager : MonoBehaviour
         yield return SlidingDoors.instance.FinishLevel(SceneManager.GetActiveScene().name, callback);
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (Keyboard.current.oKey.wasPressedThisFrame)
             LevelSuccess();
-    }
+    }*/
 
     public void LevelSuccess()
         => OnEndLevel(true);

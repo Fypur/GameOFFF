@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 50ca307fd8f6f1e4c90b8c2002b87a9e
+guid: 299530bb52350fc4cbd090bb48a06fef
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5856176815807805337
-    second: GeminiSlidingDoor_0
+      213: 6709676234695707955
+    second: gameon_-_UI_-_name_ask_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GeminiSlidingDoor_0
+      name: gameon_-_UI_-_name_ask_1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 748
-        height: 1236
+        width: 186
+        height: 68
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9973a1069c1554150800000000000000
-      internalID: 5856176815807805337
+      spriteID: 33d0bee6cfe8d1d50800000000000000
+      internalID: 6709676234695707955
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GeminiSlidingDoor_0: 5856176815807805337
+      gameon_-_UI_-_name_ask_1_0: 6709676234695707955
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
