@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -35,24 +36,30 @@ public class WinDeath : MonoBehaviour
     public void OnWin()
     {
         //choose win image
+        restartButton.GetComponentInChildren<TMP_Text>().text = "Next Level";
+        string nextLevelName = currentLevelName.Substring(0, currentLevelName.Length - 1) + (char.GetNumericValue(currentLevelName[currentLevelName.Length - 1]) + 1);
+        restartButton.onClick.AddListener(() => { StopAllCoroutines(); StartCoroutine(MoveAndLoadScene(nextLevelName)); });
         StartCoroutine(WinDeathSlide());
     }
 
     public void OnDeath()
     {
         //choose death image
+        restartButton.GetComponentInChildren<TMP_Text>().text = "Retry";
+        restartButton.onClick.AddListener(() => { StopAllCoroutines(); StartCoroutine(MoveAndLoadScene(currentLevelName)); });
         StartCoroutine(WinDeathSlide());
     }
 
     private IEnumerator MoveAndLoadScene(string scene)
     {
-        yield return StartCoroutine(Utils.SlideObject(gameObject, initPos, slideTime, Ease.EaseType.CubicOut));
+        Utils.AudioPlay("event:/Menu UI/button_click");
+        yield return StartCoroutine(Utils.SlideObject(gameObject, initPos, slideTime, Ease.EaseType.CubicIn));
         yield return SlidingDoors.instance.LoadSceneRoutine(scene);
-        yield return SlidingDoors.instance.OpenRoutine();
     }
 
     public void BackToMainMenu()
     {
+        Utils.AudioPlay("event:/Menu UI/button_click");
         StopAllCoroutines();
         StartCoroutine(MoveAndLoadScene("Menu"));
     }
@@ -60,7 +67,6 @@ public class WinDeath : MonoBehaviour
     private IEnumerator WinDeathSlide()
     {
         yield return Utils.SlideObject(gameObject, Vector2.zero, slideTime, Ease.EaseType.CubicOut);
-        restartButton.onClick.AddListener(() => { StopAllCoroutines(); StartCoroutine(MoveAndLoadScene(currentLevelName)); });
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

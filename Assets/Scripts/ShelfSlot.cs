@@ -3,7 +3,8 @@ using UnityEngine;
 public class ShelfSlot : MonoBehaviour
 {
     public ShelfItem.ItemType itemType;
-    public ShelfItem heldItem = null;
+    [HideInInspector] public ShelfItem heldItem = null;
+    [SerializeField] private GameObject explosionParticle;
 
     private void Start()
     {
@@ -17,6 +18,8 @@ public class ShelfSlot : MonoBehaviour
         item.shelfed = true;
         item.transform.SetParent(transform);
         item.transform.localPosition = Vector3.zero;
+
+        Instantiate(explosionParticle, transform);
 
         ShelfManager.instance.AddFinishedSlot();
     }

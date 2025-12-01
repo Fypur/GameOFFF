@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using FMODUnity;
 using System;
 using System.Collections;
@@ -5,6 +6,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -35,10 +37,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private HealthBar healthBar;
     [SerializeField] private IDCards IDCards;
     [SerializeField] private SlidingDoors slidingDoorsPrefab;
+    [SerializeField] private GameObject explosionParticle;
 
     [HideInInspector] public List<Person> persons;
     [HideInInspector] public int addedPersonsCount;
 
+    public static EventInstance music;
     private bool levelFinished;
     private int nameChooserIndex;
     private Vector2 originalIdPos;
@@ -65,6 +69,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        if (!music.isValid())
+            music = RuntimeManager.CreateInstance("event:/Music/level_music_loop");
 
         nameChooserIndex = UnityEngine.Random.Range(0, spawnSettings.nameChooserSettings.Length);
 
@@ -72,12 +78,6 @@ public class GameManager : MonoBehaviour
             SlidingDoors.instance.OnBeginLoadSceneOpen.AddListener(StartLevel);
         else
             StartLevel();
-    }
-
-    private void Update()
-    {
-        if (UnityEngine.InputSystem.Keyboard.current.oKey.wasPressedThisFrame)
-            SlidingDoors.instance.ClosedLoadSceneOpen("Menu");
     }
 
     public void StartLevel()
@@ -124,7 +124,12 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartRandomLevel()
     {
         //UNCOMMENT THIS TO PLAY MUSIC
-        GetComponent<StudioEventEmitter>().Play();
+        music.getPlaybackState(out PLAYBACK_STATE playbackState);
+        if (playbackState != PLAYBACK_STATE.PLAYING)
+            music.start();
+        else
+            StartCoroutine(TapeStop(0f, 1.5f));
+
 
         float t = spawnSettings.trySpawnEveryXSeconds;
         while (true)
@@ -219,6 +224,9 @@ public class GameManager : MonoBehaviour
 
         healthBar.Damage(damage);
         StartCoroutine(Utils.Shake(Camera.main.gameObject, 0.2f, 0.1f));
+
+        music.setParameterByName("Pitch_Up", 1f, true);
+        music.setParameterByName("Pitch_Up", 0f, false);
     }
 
     public void Heal(float amount)
@@ -227,6 +235,9 @@ public class GameManager : MonoBehaviour
             return;
 
         Utils.AudioPlay("event:/Interactions/pop_succeed");
+
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Instantiate(explosionParticle, mousePos, Quaternion.identity);
 
         healthBar.Heal(amount);
     }
@@ -238,14 +249,36 @@ public class GameManager : MonoBehaviour
 
         Action callback;
         if (win)
+        {
             callback = WinDeath.instance.OnWin;
+
+        }
         else
+        {
+            //Pitch_Up
+            //Tape_Stop
             callback = WinDeath.instance.OnDeath;
+            StartCoroutine(TapeStop(1f, 3f));
+        }
 
         if (SlidingDoors.instance == null)
             Instantiate(slidingDoorsPrefab);
 
         StartCoroutine(SlidingDoors.instance.FinishLevel(SceneManager.GetActiveScene().name, callback));
+    }
+
+    public IEnumerator TapeStop(float endValue, float time)
+    {
+        music.getParameterByName("Tape_Stop", out float startValue);
+        float t = 0;
+        while(t <= time)
+        {
+            music.setParameterByName("Tape_Stop", Mathf.Lerp(startValue, endValue, t / time), false);
+            t += Time.deltaTime * Time.timeScale;
+            yield return null;
+        }
+
+        music.setParameterByName("Tape_Stop", endValue, false);
     }
 
     public void LevelSuccess()
@@ -269,5 +302,7 @@ public class GameManager : MonoBehaviour
     private static void ResetStaticFields()
     {
         instance = null;
+        music.stop(STOP_MODE.IMMEDIATE);
+        music.release();
     }
 }

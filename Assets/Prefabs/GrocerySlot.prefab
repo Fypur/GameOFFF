@@ -52,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 0
   heldItem: {fileID: 0}
+  explosionParticle: {fileID: 5517037569513336334, guid: 8aafc2b1b5a636549a8ef2c5022e8833, type: 3}
 --- !u!222 &4490371646985215568
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -561,7 +561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveUI
   healedAmount: 1
-  damage: 10
+  damage: 100
   waveTime: 3
   perfectWindowTime: 1
   parentPerson: {fileID: 0}

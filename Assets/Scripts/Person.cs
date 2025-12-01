@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static GameManager;
 
 public class Person : MonoBehaviour
@@ -74,7 +75,6 @@ public class Person : MonoBehaviour
     public void Leave()
     {
         StopAllCoroutines();
-
         StartCoroutine(LeaveCoroutine());
     }
 

@@ -25,7 +25,7 @@ public class SlidingDoors : MonoBehaviour
 
         if (instance != null)
         {
-            Destroy(instance);
+            Destroy(gameObject);
             return;
         }
 

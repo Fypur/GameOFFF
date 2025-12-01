@@ -21,6 +21,12 @@ public class Menu : MonoBehaviour
 
     private void Start()
     {
+        if (GameManager.music.isValid())
+        {
+            GameManager.music.stop(STOP_MODE.ALLOWFADEOUT);
+            GameManager.music.release();
+        }
+
         currentMenu = playMenu;
         RuntimeManager.GetBus("bus:/SFX").setVolume(0.7f);
         RuntimeManager.GetBus("bus:/Music").setVolume(0.7f);
